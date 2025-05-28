@@ -24,5 +24,6 @@ rootProject.name = "WantedlyApp"
 include(
     ":app",
     ":core",
-    ":core:common"
+    ":core:common",
+    ":core:designsystem",
 )

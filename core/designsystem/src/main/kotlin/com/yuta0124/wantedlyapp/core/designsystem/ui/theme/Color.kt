@@ -1,4 +1,4 @@
-package com.example.wantedlyapp.ui.theme
+package com.yuta0124.wantedlyapp.core.designsystem.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
