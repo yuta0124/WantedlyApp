@@ -25,6 +25,7 @@ include(
     ":app",
     ":feature",
     ":feature:recruitments",
+    ":feature:recruitmentdetail",
     ":core",
     ":core:ui",
     ":core:data",
