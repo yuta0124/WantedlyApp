@@ -9,7 +9,10 @@ import org.gradle.kotlin.dsl.getByType
 class DetektPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            pluginManager.apply("io.gitlab.arturbosch.detekt")
+            with(pluginManager) {
+                apply("io.gitlab.arturbosch.detekt")
+            }
+
             setupDetekt(extensions.getByType<DetektExtension>())
 
             dependencies {
