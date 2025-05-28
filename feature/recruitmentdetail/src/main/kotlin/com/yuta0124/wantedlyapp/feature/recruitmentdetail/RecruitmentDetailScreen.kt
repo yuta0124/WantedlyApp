@@ -13,11 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 
 @Composable
-fun RecruitmentDetailScreen() {
-    RecruitmentDetailScreen(modifier = Modifier.fillMaxSize())
-}
-
-@Composable
 fun RecruitmentDetailScreen(
     modifier: Modifier = Modifier,
 ) {

@@ -13,11 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 
 @Composable
-fun RecruitmentsScreen() {
-    RecruitmentsScreen(modifier = Modifier.fillMaxSize())
-}
-
-@Composable
 fun RecruitmentsScreen(modifier: Modifier = Modifier) {
     Scaffold(modifier = modifier) { innerPadding ->
         Column(
