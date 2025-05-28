@@ -29,4 +29,5 @@ include(
     ":core:common",
     ":core:testing",
     ":core:design-system",
+    ":core:screenshot-testing",
 )
