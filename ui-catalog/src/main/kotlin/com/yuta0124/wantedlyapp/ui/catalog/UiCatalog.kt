@@ -10,7 +10,7 @@ import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 fun UiCatalog(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier.fillMaxSize()) {
-            // TODO: uiモジュールにある共通コンポーネントを配置する 
+            // TODO: uiモジュールにある共通コンポーネントを配置する
         }
     }
 }
