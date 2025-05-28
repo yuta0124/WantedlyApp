@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -20,4 +21,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "WantedlyApp"
-include(":app")
+include(
+    ":app",
+)
