@@ -1,4 +1,4 @@
-package com.example.wantedlyapp
+package com.yuta0124.wantedlyapp.app
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

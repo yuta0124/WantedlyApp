@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.wantedlyapp"
+    namespace = "com.yuta0124.wantedlyapp.app"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.wantedlyapp"
+        applicationId = "com.yuta0124.wantedlyapp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
