@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.yuta0124.wantedlyapp.core.designsystem"
+    namespace = "com.yuta0124.wantedlyapp.core.design.system"
     compileSdk = 36
 
     defaultConfig {

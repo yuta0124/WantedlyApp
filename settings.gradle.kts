@@ -28,5 +28,5 @@ include(
     ":core:model",
     ":core:common",
     ":core:testing",
-    ":core:designsystem",
+    ":core:design-system",
 )

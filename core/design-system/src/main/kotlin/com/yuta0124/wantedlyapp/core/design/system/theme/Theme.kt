@@ -1,4 +1,4 @@
-package com.yuta0124.wantedlyapp.core.designsystem.ui.theme
+package com.yuta0124.wantedlyapp.core.design.system.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
