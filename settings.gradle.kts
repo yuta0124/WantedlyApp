@@ -23,6 +23,8 @@ dependencyResolutionManagement {
 rootProject.name = "WantedlyApp"
 include(
     ":app",
+    ":feature",
+    ":feature:recruitments",
     ":core",
     ":core:ui",
     ":core:data",
