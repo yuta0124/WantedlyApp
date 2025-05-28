@@ -23,4 +23,6 @@ dependencyResolutionManagement {
 rootProject.name = "WantedlyApp"
 include(
     ":app",
+    ":core",
+    ":core:common"
 )
