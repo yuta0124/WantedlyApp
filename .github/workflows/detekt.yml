@@ -7,9 +7,6 @@ on:
     paths-ignore:
       - README.md
 
-permissions:
-  pull-requests: read
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
