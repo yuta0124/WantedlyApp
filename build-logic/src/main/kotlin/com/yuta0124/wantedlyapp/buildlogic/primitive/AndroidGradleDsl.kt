@@ -23,7 +23,10 @@ fun Project.setupDetekt(extension: DetektExtension) {
     }
 
     /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
-    val reportMerge = rootProject.tasks.withType(ReportMergeTask::class)
+    val reportMerge = rootProject.tasks.withType(ReportMergeTask::class) {
+        output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
+    }
+
     tasks.withType<Detekt>().configureEach {
         reports {
             sarif.required.set(true)
