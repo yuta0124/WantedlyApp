@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.yuta0124.wantedlyapp.app"
+    namespace = "com.yuta0124.wantedlyapp.ui.catalog"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.yuta0124.wantedlyapp"
+        applicationId = "com.yuta0124.wantedlyapp.ui.catalog"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -41,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":core:design-system"))
+    implementation(project(":core:ui"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
