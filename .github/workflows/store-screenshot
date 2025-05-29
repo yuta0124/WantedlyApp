@@ -9,7 +9,7 @@ on:
       - README.md
   push:
     branches:
-      - architecture_mvi
+      - main
     paths-ignore:
       - README.md
 
