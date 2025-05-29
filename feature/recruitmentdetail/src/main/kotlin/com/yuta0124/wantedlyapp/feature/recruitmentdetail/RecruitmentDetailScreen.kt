@@ -15,14 +15,6 @@ import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 @Composable
 fun RecruitmentDetailScreen(
     modifier: Modifier = Modifier,
-    viewModel: RecruitmentDetailViewModel,
-) {
-    RecruitmentDetailScreen()
-}
-
-@Composable
-fun RecruitmentDetailScreen(
-    modifier: Modifier = Modifier,
 ) {
     Scaffold(modifier = modifier) { innerPadding ->
         Column(

@@ -19,5 +19,15 @@ java {
 }
 
 dependencies {
+    implementation(libs.bundles.plugins)
+}
+
+gradlePlugin {
+    plugins {
+        register("detekt") {
+            id = libs.plugins.wantedlyapp.detekt.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"
+        }
+    }
 }
 
