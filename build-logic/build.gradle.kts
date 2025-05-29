@@ -24,6 +24,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = libs.plugins.wantedlyapp.android.gradle.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidApplicationPlugin"
+        }
         register("detekt") {
             id = libs.plugins.wantedlyapp.detekt.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"

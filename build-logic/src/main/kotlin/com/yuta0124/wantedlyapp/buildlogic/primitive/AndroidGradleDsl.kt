@@ -1,11 +1,56 @@
 package com.yuta0124.wantedlyapp.buildlogic.primitive
 
+import com.android.build.gradle.TestedExtension
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
+
+fun Project.androidApplication(action: BaseAppModuleExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.android(action: TestedExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.kotlin(action: KotlinAndroidProjectExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.setupAndroid() {
+    android {
+        namespace?.let {
+            this.namespace = it
+        }
+        compileSdkVersion(36)
+
+        defaultConfig {
+            minSdk = 24
+            targetSdk = 36
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+            vectorDrawables {
+                useSupportLibrary = true
+            }
+        }
+
+        kotlin {
+            jvmToolchain(17)
+        }
+
+        compileOptions {
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
+        }
+    }
+}
 
 fun Project.setupDetekt(extension: DetektExtension) {
     extension.apply {

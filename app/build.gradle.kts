@@ -1,22 +1,17 @@
 plugins {
-    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.wantedlyapp.android.gradle.plugin)
     alias(libs.plugins.wantedlyapp.detekt)
 }
 
 android {
     namespace = "com.yuta0124.wantedlyapp.app"
-    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.yuta0124.wantedlyapp"
-        minSdk = 24
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -28,13 +23,7 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
     buildFeatures {
         compose = true
     }
