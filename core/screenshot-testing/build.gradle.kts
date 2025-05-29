@@ -74,6 +74,6 @@ roborazzi {
     @OptIn(ExperimentalRoborazziApi::class)
     generateComposePreviewRobolectricTests {
         enable = true
-        packages = listOf("com.example.basecomposeproject")
+        packages = listOf("com.yuta0124.wantedlyapp")
     }
 }
