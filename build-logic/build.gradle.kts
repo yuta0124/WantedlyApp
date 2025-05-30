@@ -28,6 +28,10 @@ gradlePlugin {
             id = libs.plugins.wantedlyapp.android.gradle.plugin.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidApplicationPlugin"
         }
+        register("androidKotlin") {
+            id = libs.plugins.wantedlyapp.android.kotlin.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidKotlinPlugin"
+        }
         register("detekt") {
             id = libs.plugins.wantedlyapp.detekt.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"

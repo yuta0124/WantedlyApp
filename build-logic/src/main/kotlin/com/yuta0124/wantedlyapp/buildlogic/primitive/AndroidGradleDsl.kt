@@ -10,17 +10,12 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
 fun Project.androidApplication(action: BaseAppModuleExtension.() -> Unit) {
     extensions.configure(action)
 }
 
 fun Project.android(action: TestedExtension.() -> Unit) {
-    extensions.configure(action)
-}
-
-fun Project.kotlin(action: KotlinAndroidProjectExtension.() -> Unit) {
     extensions.configure(action)
 }
 
