@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.wantedlyapp.android.library.plugin)
     alias(libs.plugins.wantedlyapp.android.kotlin.plugin)
     alias(libs.plugins.wantedlyapp.android.compose.plugin)
     alias(libs.plugins.wantedlyapp.detekt)
@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:design-system"))
+    implementation(projects.core.designSystem)
     implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

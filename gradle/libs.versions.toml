@@ -59,6 +59,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 wantedlyapp-android-gradle-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.gradle.plugin" }
+wantedlyapp-android-library-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.library.plugin" }
 wantedlyapp-android-kotlin-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.kotlin.gradle.plugin" }
 wantedlyapp-android-compose-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.compose.plugin" }
 wantedlyapp-detekt = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.detekt" }

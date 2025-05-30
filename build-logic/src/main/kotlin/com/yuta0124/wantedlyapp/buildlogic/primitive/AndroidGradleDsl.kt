@@ -1,5 +1,6 @@
 package com.yuta0124.wantedlyapp.buildlogic.primitive
 
+import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
@@ -12,6 +13,10 @@ import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.withType
 
 fun Project.androidApplication(action: BaseAppModuleExtension.() -> Unit) {
+    extensions.configure(action)
+}
+
+fun Project.androidLibrary(action: LibraryExtension.() -> Unit) {
     extensions.configure(action)
 }
 
