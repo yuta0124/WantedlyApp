@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.roborazzi.plugin)
 }
 
-
 android {
     namespace = "com.yuta0124.wantedlyapp.core.screenshot.testing"
 
