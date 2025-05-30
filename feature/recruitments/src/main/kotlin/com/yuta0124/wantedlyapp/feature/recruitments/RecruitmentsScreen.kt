@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,16 +14,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 
 @Composable
-fun RecruitmentsScreen(modifier: Modifier = Modifier) {
+fun RecruitmentsScreen(
+    navigateToDetail: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(modifier = modifier) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text("募集一覧画面")
+            Button(
+                onClick = navigateToDetail
+            ) {
+                Text("詳細画面へ")
+            }
         }
     }
 }
@@ -31,6 +40,8 @@ fun RecruitmentsScreen(modifier: Modifier = Modifier) {
 @Composable
 fun RecruitmentsScreenPreview() {
     WantedlyAppTheme {
-        RecruitmentsScreen()
+        RecruitmentsScreen(
+            navigateToDetail = {},
+        )
     }
 }

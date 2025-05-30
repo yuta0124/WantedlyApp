@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(projects.core.designSystem)
+    implementation(projects.feature.recruitments)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
