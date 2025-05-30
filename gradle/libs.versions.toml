@@ -12,7 +12,6 @@ activityCompose = "1.10.1"
 composeBom = "2025.05.01"
 navigationCompose = "2.9.0"
 appcompat = "1.7.0"
-material = "1.12.0"
 detekt = "1.23.7"
 twitterComposeRule = "0.0.26"
 arrow = "2.0.1"
@@ -40,7 +39,6 @@ androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-material3 = { module = "androidx.compose.material3:material3" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
-material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # Architecture
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
