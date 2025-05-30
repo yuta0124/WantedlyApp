@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.wantedlyapp.android.gradle.plugin)
     alias(libs.plugins.wantedlyapp.android.kotlin.plugin)
     alias(libs.plugins.wantedlyapp.android.compose.plugin)
     alias(libs.plugins.wantedlyapp.detekt)
@@ -7,12 +7,9 @@ plugins {
 
 android {
     namespace = "com.yuta0124.wantedlyapp.ui.catalog"
-    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.yuta0124.wantedlyapp.ui.catalog"
-        minSdk = 24
-        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -21,22 +18,14 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            signingConfig = signingConfigs.named("debug").get()
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
 dependencies {
-    implementation(project(":core:design-system"))
-    implementation(project(":core:ui"))
+    implementation(projects.core.designSystem)
+    implementation(projects.core.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
