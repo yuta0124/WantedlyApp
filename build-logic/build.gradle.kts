@@ -32,6 +32,10 @@ gradlePlugin {
             id = libs.plugins.wantedlyapp.android.kotlin.plugin.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidKotlinPlugin"
         }
+        register("androidCompose") {
+            id = libs.plugins.wantedlyapp.android.compose.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidComposePlugin"
+        }
         register("detekt") {
             id = libs.plugins.wantedlyapp.detekt.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"

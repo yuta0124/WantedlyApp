@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.wantedlyapp.android.kotlin.plugin)
+    alias(libs.plugins.wantedlyapp.android.compose.plugin)
     alias(libs.plugins.wantedlyapp.detekt)
 }
 
@@ -31,10 +32,7 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
