@@ -24,6 +24,22 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = libs.plugins.wantedlyapp.android.gradle.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidApplicationPlugin"
+        }
+        register("androidLibrary") {
+            id = libs.plugins.wantedlyapp.android.library.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidLibraryPlugin"
+        }
+        register("androidKotlin") {
+            id = libs.plugins.wantedlyapp.android.kotlin.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidKotlinPlugin"
+        }
+        register("androidCompose") {
+            id = libs.plugins.wantedlyapp.android.compose.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidComposePlugin"
+        }
         register("detekt") {
             id = libs.plugins.wantedlyapp.detekt.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"

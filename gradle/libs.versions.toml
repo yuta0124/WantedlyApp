@@ -1,6 +1,8 @@
 [versions]
 agp = "8.10.0"
+ksp = "2.0.21-1.0.27"
 kotlin = "2.0.21"
+kotlinxSerialization = "1.8.1"
 coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -8,18 +10,26 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.01"
+navigationCompose = "2.9.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 detekt = "1.23.7"
 twitterComposeRule = "0.0.26"
+arrow = "2.0.1"
 roborazzi = "1.41.0"
 robolectric = "4.14.1"
 composablePreviewScanner = "0.5.1"
 
 [libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+ksp-gradle-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-ui = { module = "androidx.compose.ui:ui" }
@@ -33,9 +43,14 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # Architecture
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 twitter-compose-rules = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+
+#data
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 #Test
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -51,12 +66,21 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 roborazzi-plugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 
+wantedlyapp-android-gradle-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.gradle.plugin" }
+wantedlyapp-android-library-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.library.plugin" }
+wantedlyapp-android-kotlin-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.kotlin.gradle.plugin" }
+wantedlyapp-android-compose-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.compose.plugin" }
 wantedlyapp-detekt = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.detekt" }
 
 [bundles]
 plugins = [
+    "android-gradle-plugin",
+    "ksp-gradle-plugin",
+    "kotlin-gradle-plugin",
+    "kotlin-serialization-plugin",
     "detekt-gradle-plugin",
     "twitter-compose-rules",
 ]
