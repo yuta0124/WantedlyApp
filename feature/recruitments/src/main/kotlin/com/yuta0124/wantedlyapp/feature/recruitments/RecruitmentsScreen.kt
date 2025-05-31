@@ -15,7 +15,7 @@ import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 
 @Composable
 fun RecruitmentsScreen(
-    navigateToDetail: () -> Unit,
+    navigateToDetail: (id: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(modifier = modifier) { innerPadding ->
@@ -28,7 +28,10 @@ fun RecruitmentsScreen(
         ) {
             Text("募集一覧画面")
             Button(
-                onClick = navigateToDetail
+                onClick = {
+                    // 仮のIDを使用
+                    navigateToDetail(1)
+                }
             ) {
                 Text("詳細画面へ")
             }
