@@ -28,6 +28,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 implementation(libs.library("androidx-lifecycle-runtime-ktx"))
                 implementation(libs.library("androidx-activity-compose"))
                 implementation(libs.library("navigation-compose"))
+                implementation(libs.library("hilt-navigation-compose"))
                 testImplementation(libs.library("androidx-ui-test-junit4"))
                 debugImplementation(libs.library("androidx-ui-tooling"))
                 debugImplementation(libs.library("androidx-ui-test-manifest"))
