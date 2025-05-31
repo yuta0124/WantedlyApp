@@ -8,14 +8,31 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 
 @Composable
 fun RecruitmentsScreen(
     navigateToDetail: (id: Int) -> Unit,
+    viewModel: RecruitmentsViewModel = hiltViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    RecruitmentsScreen(
+        uiState = uiState,
+        modifier = Modifier,
+        navigateToDetail = navigateToDetail,
+    )
+}
+
+@Composable
+fun RecruitmentsScreen(
+    uiState: UiState,
+    navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(modifier = modifier) { innerPadding ->
@@ -44,6 +61,7 @@ fun RecruitmentsScreen(
 fun RecruitmentsScreenPreview() {
     WantedlyAppTheme {
         RecruitmentsScreen(
+            uiState = UiState(),
             navigateToDetail = {},
         )
     }
