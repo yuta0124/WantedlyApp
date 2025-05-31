@@ -44,6 +44,10 @@ gradlePlugin {
             id = libs.plugins.wantedlyapp.detekt.get().pluginId
             implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.DetektPlugin"
         }
+        register("androidHilt") {
+            id = libs.plugins.wantedlyapp.hilt.plugin.get().pluginId
+            implementationClass = "com.yuta0124.wantedlyapp.buildlogic.primitive.AndroidHiltPlugin"
+        }
     }
 }
 

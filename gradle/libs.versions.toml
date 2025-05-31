@@ -19,6 +19,8 @@ roborazzi = "1.41.0"
 robolectric = "4.14.1"
 composablePreviewScanner = "0.5.1"
 ktor = "3.1.3"
+hilt = '2.56.2'
+hiltNavigationCompose = "1.2.0"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -47,6 +49,10 @@ detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 twitter-compose-rules = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 #data
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
@@ -72,12 +78,14 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 roborazzi-plugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+hilt-gradle-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 wantedlyapp-android-gradle-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.gradle.plugin" }
 wantedlyapp-android-library-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.library.plugin" }
 wantedlyapp-android-kotlin-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.kotlin.gradle.plugin" }
 wantedlyapp-android-compose-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.android.compose.plugin" }
 wantedlyapp-detekt = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.detekt" }
+wantedlyapp-hilt-plugin = { id = "com.yuta0124.wantedlyapp.buildlogic.primitive.hilt.plugin" }
 
 [bundles]
 plugins = [
@@ -87,4 +95,5 @@ plugins = [
     "kotlin-serialization-plugin",
     "detekt-gradle-plugin",
     "twitter-compose-rules",
+    "hilt-gradle-plugin",
 ]
