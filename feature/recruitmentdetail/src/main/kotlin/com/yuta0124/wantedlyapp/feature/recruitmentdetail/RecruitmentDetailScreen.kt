@@ -47,6 +47,8 @@ fun RecruitmentDetailScreen(
 @Composable
 fun RecruitmentDetailScreenPreview() {
     WantedlyAppTheme {
-        RecruitmentDetailScreen()
+        RecruitmentDetailScreen(
+            uiState = UiState()
+        )
     }
 }
