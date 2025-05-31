@@ -1,5 +1,7 @@
 package com.yuta0124.wantedlyapp.core.data.network
 
+import com.yuta0124.wantedlyapp.core.data.network.response.RecruitmentDetailResponse
+import com.yuta0124.wantedlyapp.core.data.network.response.RecruitmentsResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -20,11 +22,3 @@ class NetworkService(private val httpClient: HttpClient) : INetworkService {
             url(id.toString())
         }.body()
 }
-
-data class RecruitmentsResponse(
-    val dummy: String,
-)
-
-data class RecruitmentDetailResponse(
-    val dummy: String,
-)
