@@ -8,6 +8,7 @@ data class Recruitment(
     val thumbnailUrl: String,
 ) {
     companion object {
+        @Suppress("MagicNumber")
         fun fake(): List<Recruitment> = (0..10).map {
             Recruitment(
                 id = it,
