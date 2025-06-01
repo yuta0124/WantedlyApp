@@ -29,10 +29,6 @@ import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
 
-sealed interface Intent {
-    data class KeywordChange(val newKeyword: String) : Intent
-}
-
 @Composable
 fun RecruitmentsScreen(
     navigateToDetail: (id: Int) -> Unit,
@@ -43,11 +39,11 @@ fun RecruitmentsScreen(
     RecruitmentsScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
-        modifier = Modifier,
         navigateToDetail = navigateToDetail,
     )
 }
 
+@Suppress("UnusedParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecruitmentsScreen(

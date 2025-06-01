@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -17,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
+import com.yuta0124.wantedlyapp.feature.recruitments.RecruitmentsDefaults
 
 @Composable
 fun SearchBar(
@@ -26,10 +26,9 @@ fun SearchBar(
     paddingValues: PaddingValues = PaddingValues.Absolute(),
 ) {
     Box(
-        modifier =
-            modifier
-                .background(color = MaterialTheme.colorScheme.background)
-                .padding(paddingValues),
+        modifier = modifier
+            .background(color = MaterialTheme.colorScheme.background)
+            .padding(paddingValues),
         contentAlignment = Alignment.Center,
     ) {
         OutlinedTextField(
@@ -45,7 +44,7 @@ fun SearchBar(
             placeholder = {
                 Text(text = stringResource(R.string.recruitments_keyword_placeholder))
             },
-            shape = RoundedCornerShape(50),
+            shape = RecruitmentsDefaults.searchBarShape,
             singleLine = true,
         )
     }

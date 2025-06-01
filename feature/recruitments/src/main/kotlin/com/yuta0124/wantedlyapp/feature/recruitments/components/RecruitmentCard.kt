@@ -23,6 +23,7 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.ui.component.CompanyInfoHeader
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
+import com.yuta0124.wantedlyapp.feature.recruitments.RecruitmentsDefaults
 
 @Composable
 fun RecruitmentCard(
@@ -47,7 +48,7 @@ fun RecruitmentCard(
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(16f / 9f)
+                    .aspectRatio(RecruitmentsDefaults.Ration)
                     .background(shimmerBrush(showShimmer = loadingThumbnail)),
                 model = thumbnailUrl,
                 error = painterResource(R.drawable.no_image),

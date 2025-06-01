@@ -25,6 +25,7 @@ fun RecruitmentDetailScreen(
     )
 }
 
+@Suppress("UnusedParameter")
 @Composable
 fun RecruitmentDetailScreen(
     uiState: UiState,

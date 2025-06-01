@@ -11,20 +11,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun shimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f): Brush {
+fun shimmerBrush(
+    showShimmer: Boolean = true,
+    targetValue: Float = ShimmerBrushDefaults.TargetValue,
+): Brush {
     return if (showShimmer) {
-        val shimmerColors = listOf(
-            Color.LightGray.copy(alpha = 0.6f),
-            Color.LightGray.copy(alpha = 0.2f),
-            Color.LightGray.copy(alpha = 0.6f),
-        )
+        val shimmerColors = ShimmerBrushDefaults.colors
 
         val transition = rememberInfiniteTransition()
         val translateAnimation = transition.animateFloat(
-            initialValue = 0f,
+            initialValue = ShimmerBrushDefaults.AnimationInitialValue,
             targetValue = targetValue,
             animationSpec = infiniteRepeatable(
-                animation = tween(800), repeatMode = RepeatMode.Reverse
+                animation = tween(ShimmerBrushDefaults.AnimationTweenMillis),
+                repeatMode = RepeatMode.Reverse,
             )
         )
         Brush.linearGradient(
@@ -39,4 +39,15 @@ fun shimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f): Brush
             end = Offset.Zero
         )
     }
+}
+
+object ShimmerBrushDefaults {
+    const val TargetValue = 1000f
+    const val AnimationInitialValue = 0f
+    const val AnimationTweenMillis = 800
+    val colors = listOf(
+        Color.LightGray.copy(alpha = 0.6f),
+        Color.LightGray.copy(alpha = 0.2f),
+        Color.LightGray.copy(alpha = 0.6f),
+    )
 }
