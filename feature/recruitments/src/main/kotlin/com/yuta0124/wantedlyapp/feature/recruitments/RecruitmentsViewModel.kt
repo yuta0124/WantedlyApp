@@ -3,11 +3,13 @@ package com.yuta0124.wantedlyapp.feature.recruitments
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
+import com.yuta0124.wantedlyapp.core.model.Recruitment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,12 +31,14 @@ class RecruitmentsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             repository.fetchRecruitments(null, 1).fold(
                 ifLeft = { error ->
-
+                    // TODO:  
                 },
                 ifRight = { response ->
-
+                    // TODO:  
                 }
             )
+        }
+    }
 
     fun onAction(intent: Intent) {
         when (intent) {
