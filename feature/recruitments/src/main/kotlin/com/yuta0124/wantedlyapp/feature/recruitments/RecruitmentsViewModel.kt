@@ -18,19 +18,10 @@ class RecruitmentsViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+    private var allPageCount = 0
 
     init {
-        // TODO: 仮実装
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchRecruitments(null, 1).fold(
-                ifLeft = { error ->
-                    // TODO: エラー処理
-                },
-                ifRight = { response ->
-                    // TODO: 正常系処理
-                }
-            )
-        }
+        fetchRecruitments(keyword = null, page = initialPage)
     }
 
     fun onAction(intent: Intent) {
@@ -38,6 +29,26 @@ class RecruitmentsViewModel @Inject constructor(
             is Intent.KeywordChange -> {
                 _uiState.update { it.copy(keyword = intent.newKeyword) }
             }
+        }
+    }
+
+    private fun fetchRecruitments(
+        keyword: String?,
+        page: Int,
+    ) {
+        viewModelScope.launch {
+            repository.fetchRecruitments(
+                keyword = keyword,
+                page = page,
+            ).fold(
+                ifLeft = { _ ->
+                    // TODO: エラーハンドリング
+                },
+                ifRight = { response ->
+                    _uiState.update { it.copy(recruitments = response.toRecruitmentList()) }
+                    allPageCount += response.data.size
+                }
+            ).run { _uiState.update { it.copy(isLoading = false) } }
         }
     }
 }
