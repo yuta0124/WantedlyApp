@@ -10,6 +10,8 @@ android.namespace = "com.yuta0124.wantedlyapp.feature.recruitments"
 
 dependencies {
     implementation(projects.core.designSystem)
+    implementation(projects.core.data)
+
     implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
