@@ -31,7 +31,7 @@ class RecruitmentsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             repository.fetchRecruitments(null, 1).fold(
                 ifLeft = { error ->
-                    // TODO:  
+                    // TODO:
                 },
                 ifRight = { response ->
                     // TODO:  
