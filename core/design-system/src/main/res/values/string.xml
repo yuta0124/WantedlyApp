@@ -1,0 +1,4 @@
+<resources>
+    <string name="recruitments_title">募集一覧</string>
+    <string name="recruitments_keyword_placeholder">検索キーワード</string>
+</resources>
