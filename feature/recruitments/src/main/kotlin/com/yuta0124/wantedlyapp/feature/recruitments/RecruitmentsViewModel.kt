@@ -8,12 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-data class UiState(
-    val isLoading: Boolean = false,
-)
 
 @HiltViewModel
 class RecruitmentsViewModel @Inject constructor(
@@ -27,12 +24,20 @@ class RecruitmentsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             repository.fetchRecruitments(null, 1).fold(
                 ifLeft = { error ->
-
+                    // TODO: エラー処理
                 },
                 ifRight = { response ->
-
+                    // TODO: 正常系処理
                 }
             )
+        }
+    }
+
+    fun onAction(intent: Intent) {
+        when (intent) {
+            is Intent.KeywordChange -> {
+                _uiState.update { it.copy(keyword = intent.newKeyword) }
+            }
         }
     }
 }

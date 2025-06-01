@@ -21,6 +21,8 @@ composablePreviewScanner = "0.5.1"
 ktor = "3.1.3"
 hilt = '2.56.2'
 hiltNavigationCompose = "1.2.0"
+coil = "3.2.0"
+coilNetworkOkhttp = "3.2.0"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -42,6 +44,8 @@ androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-material3 = { module = "androidx.compose.material3:material3" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
 
 # Architecture
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

@@ -8,6 +8,8 @@ plugins {
 android.namespace = "com.yuta0124.wantedlyapp.core.ui"
 
 dependencies {
+    implementation(projects.core.designSystem)
+
     implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
