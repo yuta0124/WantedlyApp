@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class UiState(
-    val isLoading: Boolean = false,
+    val keyword: String = "",
+    val isLoading: Boolean = true,
+    val recruitments: List<Recruitment> = emptyList(),
 )
 
 @HiltViewModel
@@ -33,6 +35,12 @@ class RecruitmentsViewModel @Inject constructor(
 
                 }
             )
+
+    fun onAction(intent: Intent) {
+        when (intent) {
+            is Intent.KeywordChange -> {
+                _uiState.update { it.copy(keyword = intent.newKeyword) }
+            }
         }
     }
 }
