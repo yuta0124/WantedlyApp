@@ -39,6 +39,7 @@ class RecruitmentsViewModel @Inject constructor(
             }
 
             Intent.Search -> {
+                allPageCount = 0
                 _uiState.update { it.copy(isLoading = true) }
                 fetchRecruitments(keyword = uiState.value.keyword, page = initialPage)
             }
