@@ -10,9 +10,9 @@ data class Staffing(
     @SerialName("name")
     val name: String,
     @SerialName("description")
-    val description: String,
+    val description: String?,
     @SerialName("is_leader")
-    val isLeader: Boolean,
+    val isLeader: Boolean?,
     @SerialName("facebook_uid")
     val facebookUid: String?,
 )

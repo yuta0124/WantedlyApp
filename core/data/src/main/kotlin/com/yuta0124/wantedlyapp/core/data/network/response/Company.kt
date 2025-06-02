@@ -12,21 +12,21 @@ data class Company(
     @SerialName("url")
     val url: String,
     @SerialName("address_prefix")
-    val addressPrefix: String,
+    val addressPrefix: String?,
     @SerialName("address_suffix")
-    val addressSuffix: String,
+    val addressSuffix: String?,
     @SerialName("avatar")
-    val avatar: Avatar,
+    val avatar: Avatar?,
     @SerialName("font_color_code")
-    val fontColorCode: String,
+    val fontColorCode: String?,
     @SerialName("founded_on")
-    val foundedOn: String,
+    val foundedOn: String?,
     @SerialName("founder")
-    val founder: String,
+    val founder: String?,
     @SerialName("latitude")
-    val latitude: Double,
+    val latitude: Double?,
     @SerialName("longitude")
-    val longitude: Double,
+    val longitude: Double?,
     @SerialName("payroll_number")
     val payrollNumber: Int?,
 )

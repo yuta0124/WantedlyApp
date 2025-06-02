@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Avatar(
     @SerialName("original")
-    val original: String,
+    val original: String?,
 )
