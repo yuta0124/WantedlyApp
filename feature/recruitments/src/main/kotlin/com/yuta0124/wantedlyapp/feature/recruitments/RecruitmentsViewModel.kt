@@ -2,9 +2,9 @@ package com.yuta0124.wantedlyapp.feature.recruitments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentList
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,18 +19,11 @@ class RecruitmentsViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
+    private val initialPage = 0
+    private var allPageCount = 0
+
     init {
-        // TODO: 仮実装
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.fetchRecruitments(null, 1).fold(
-                ifLeft = { error ->
-                    // TODO: エラー処理
-                },
-                ifRight = { response ->
-                    // TODO: 正常系処理
-                }
-            )
-        }
+        fetchRecruitments(keyword = null, page = initialPage)
     }
 
     fun onAction(intent: Intent) {
@@ -38,6 +31,55 @@ class RecruitmentsViewModel @Inject constructor(
             is Intent.KeywordChange -> {
                 _uiState.update { it.copy(keyword = intent.newKeyword) }
             }
+
+            Intent.AdditionalRecruitments -> {
+                if (uiState.value.loading == UiState.Loading.ADDITIONAL || uiState.value.isPageLimit) return
+                _uiState.update { it.copy(loading = UiState.Loading.ADDITIONAL) }
+                fetchRecruitments(keyword = uiState.value.keyword, page = allPageCount)
+            }
+
+            Intent.Search -> {
+                allPageCount = 0
+                _uiState.update {
+                    it.copy(
+                        loading = UiState.Loading.INDICATOR,
+                        isPageLimit = false,
+                    )
+                }
+                fetchRecruitments(keyword = uiState.value.keyword, page = initialPage)
+            }
+        }
+    }
+
+    private fun fetchRecruitments(
+        keyword: String?,
+        page: Int,
+    ) {
+        viewModelScope.launch {
+            repository.fetchRecruitments(
+                keyword = keyword,
+                page = page,
+            ).fold(
+                ifLeft = { _ ->
+                    // TODO: エラーハンドリング
+                },
+                ifRight = { response ->
+                    if (response.data.isEmpty()) _uiState.update { it.copy(isPageLimit = true) }
+                    val newRecruitments = if (uiState.value.loading == UiState.Loading.ADDITIONAL) {
+                        uiState.value.recruitments + response.toRecruitmentList()
+                    } else {
+                        response.toRecruitmentList()
+                    }
+
+                    _uiState.update {
+                        it.copy(
+                            recruitments = newRecruitments,
+                            loading = UiState.Loading.NONE,
+                        )
+                    }
+                    allPageCount += response.data.size
+                }
+            )
         }
     }
 }

@@ -9,7 +9,7 @@ data class RecruitmentsResponse(
     @SerialName("data")
     val data: List<Data>,
     @SerialName("_metadata")
-    val metadata: Metadata,
+    val metadata: Metadata?,
 )
 
 fun RecruitmentsResponse.toRecruitmentList(): List<Recruitment> = data.map {
@@ -17,7 +17,7 @@ fun RecruitmentsResponse.toRecruitmentList(): List<Recruitment> = data.map {
         id = it.id,
         title = it.title,
         companyName = it.company.name,
-        companyLogoImage = it.company.avatar.original,
+        companyLogoImage = it.company.avatar?.original,
         thumbnailUrl = it.image.original,
     )
 }

@@ -4,7 +4,7 @@ data class Recruitment(
     val id: Int,
     val title: String,
     val companyName: String,
-    val companyLogoImage: String,
+    val companyLogoImage: String?,
     val thumbnailUrl: String,
 ) {
     companion object {
