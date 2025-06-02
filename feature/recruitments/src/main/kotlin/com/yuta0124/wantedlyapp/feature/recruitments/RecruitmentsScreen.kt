@@ -15,8 +15,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
@@ -30,6 +32,7 @@ import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentCard
+import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentLoadingCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
 import kotlinx.coroutines.launch
 
@@ -60,6 +63,21 @@ fun RecruitmentsScreen(
     val lazyState = rememberLazyListState()
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(Unit) {
+        snapshotFlow {
+            lazyState.layoutInfo.visibleItemsInfo
+        }.collect { visibleItems ->
+            if (visibleItems.isNotEmpty() && !uiState.isAdditionalLoading) {
+                val lastVisibleItem = visibleItems.last()
+                val totalItems = lazyState.layoutInfo.totalItemsCount
+
+                if (lastVisibleItem.index >= totalItems - 2) {
+                    onAction(Intent.AdditionalRecruitments)
+                }
+            }
+        }
+    }
+
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -89,7 +107,7 @@ fun RecruitmentsScreen(
             stickyHeader {
                 SearchBar(
                     modifier = Modifier.fillMaxWidth(),
-                    keyword = uiState.keyword,
+                    keyword = uiState.keyword ?: "",
                     paddingValues = PaddingValues(vertical = 8.dp),
                     onSearch = {
                         scope.launch {
@@ -109,6 +127,12 @@ fun RecruitmentsScreen(
                     companyName = recruitment.companyName,
                     companyLogoImage = recruitment.companyLogoImage,
                 )
+            }
+
+            if (uiState.isAdditionalLoading) {
+                item {
+                    RecruitmentLoadingCard(modifier = Modifier.fillMaxWidth())
+                }
             }
         }
     }

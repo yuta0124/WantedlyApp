@@ -32,6 +32,12 @@ class RecruitmentsViewModel @Inject constructor(
                 _uiState.update { it.copy(keyword = intent.newKeyword) }
             }
 
+            Intent.AdditionalRecruitments -> {
+                if (uiState.value.isAdditionalLoading) return
+                _uiState.update { it.copy(isAdditionalLoading = true) }
+                fetchRecruitments(keyword = uiState.value.keyword, page = allPageCount)
+            }
+
             Intent.Search -> {
                 _uiState.update { it.copy(isLoading = true) }
                 fetchRecruitments(keyword = uiState.value.keyword, page = initialPage)
@@ -52,10 +58,22 @@ class RecruitmentsViewModel @Inject constructor(
                     // TODO: エラーハンドリング
                 },
                 ifRight = { response ->
-                    _uiState.update { it.copy(recruitments = response.toRecruitmentList()) }
+                    val newRecruitments = if (uiState.value.isAdditionalLoading) {
+                        uiState.value.recruitments + response.toRecruitmentList()
+                    } else {
+                        response.toRecruitmentList()
+                    }
+
+                    _uiState.update {
+                        it.copy(
+                            recruitments = newRecruitments,
+                            isAdditionalLoading = false,
+                            isLoading = false,
+                        )
+                    }
                     allPageCount += response.data.size
                 }
-            ).run { _uiState.update { it.copy(isLoading = false) } }
+            )
         }
     }
 }
