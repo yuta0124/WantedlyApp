@@ -23,7 +23,7 @@ import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 
 @Composable
 fun CompanyInfoHeader(
-    companyLogoUrl: String,
+    companyLogoUrl: String?,
     companyName: String,
     modifier: Modifier = Modifier,
 ) {
@@ -39,7 +39,6 @@ fun CompanyInfoHeader(
                 .size(24.dp)
                 .background(shimmerBrush(showShimmer = loadingThumbnail)),
             model = companyLogoUrl,
-            placeholder = painterResource(R.drawable.no_image),
             error = painterResource(R.drawable.no_image),
             onSuccess = { loadingThumbnail = false },
             onError = { loadingThumbnail = false },

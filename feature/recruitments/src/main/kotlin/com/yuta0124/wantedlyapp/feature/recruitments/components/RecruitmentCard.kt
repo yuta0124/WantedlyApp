@@ -30,7 +30,7 @@ fun RecruitmentCard(
     thumbnailUrl: String,
     title: String,
     companyName: String,
-    companyLogoImage: String,
+    companyLogoImage: String?,
     modifier: Modifier = Modifier,
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
