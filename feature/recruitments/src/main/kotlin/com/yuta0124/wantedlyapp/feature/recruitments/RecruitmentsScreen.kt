@@ -126,6 +126,7 @@ fun RecruitmentsScreen(
                     title = recruitment.title,
                     companyName = recruitment.companyName,
                     companyLogoImage = recruitment.companyLogoImage,
+                    onClick = { navigateToDetail(recruitment.id) },
                 )
             }
 
