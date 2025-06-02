@@ -2,4 +2,7 @@
     <string name="recruitments_title">募集一覧</string>
     <string name="recruitments_keyword_placeholder">検索キーワード</string>
     <string name="loading_text">---</string>
+    <string name="what_description_title">What?</string>
+    <string name="why_description_title">Why?</string>
+    <string name="how_description_title">How?</string>
 </resources>
