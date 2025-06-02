@@ -33,14 +33,19 @@ class RecruitmentsViewModel @Inject constructor(
             }
 
             Intent.AdditionalRecruitments -> {
-                if (uiState.value.isAdditionalLoading) return
-                _uiState.update { it.copy(isAdditionalLoading = true) }
+                if (uiState.value.loading == UiState.Loading.ADDITIONAL || uiState.value.isPageLimit) return
+                _uiState.update { it.copy(loading = UiState.Loading.ADDITIONAL) }
                 fetchRecruitments(keyword = uiState.value.keyword, page = allPageCount)
             }
 
             Intent.Search -> {
                 allPageCount = 0
-                _uiState.update { it.copy(isLoading = true) }
+                _uiState.update {
+                    it.copy(
+                        loading = UiState.Loading.INDICATOR,
+                        isPageLimit = false,
+                    )
+                }
                 fetchRecruitments(keyword = uiState.value.keyword, page = initialPage)
             }
         }
@@ -59,7 +64,8 @@ class RecruitmentsViewModel @Inject constructor(
                     // TODO: エラーハンドリング
                 },
                 ifRight = { response ->
-                    val newRecruitments = if (uiState.value.isAdditionalLoading) {
+                    if (response.data.isEmpty()) _uiState.update { it.copy(isPageLimit = true) }
+                    val newRecruitments = if (uiState.value.loading == UiState.Loading.ADDITIONAL) {
                         uiState.value.recruitments + response.toRecruitmentList()
                     } else {
                         response.toRecruitmentList()
@@ -68,8 +74,7 @@ class RecruitmentsViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             recruitments = newRecruitments,
-                            isAdditionalLoading = false,
-                            isLoading = false,
+                            loading = UiState.Loading.NONE,
                         )
                     }
                     allPageCount += response.data.size

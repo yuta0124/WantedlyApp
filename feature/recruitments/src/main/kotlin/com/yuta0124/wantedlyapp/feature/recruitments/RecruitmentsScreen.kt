@@ -67,7 +67,7 @@ fun RecruitmentsScreen(
         snapshotFlow {
             lazyState.layoutInfo.visibleItemsInfo
         }.collect { visibleItems ->
-            if (visibleItems.isNotEmpty() && !uiState.isAdditionalLoading) {
+            if (visibleItems.isNotEmpty()) {
                 val lastVisibleItem = visibleItems.last()
                 val totalItems = lazyState.layoutInfo.totalItemsCount
 
@@ -88,7 +88,7 @@ fun RecruitmentsScreen(
             )
         }
     ) { innerPadding ->
-        if (uiState.isLoading) {
+        if (uiState.loading == UiState.Loading.INDICATOR) {
             CircularIndicator(
                 modifier = Modifier
                     .fillMaxSize()
@@ -129,7 +129,7 @@ fun RecruitmentsScreen(
                 )
             }
 
-            if (uiState.isAdditionalLoading) {
+            if (uiState.loading == UiState.Loading.ADDITIONAL) {
                 item {
                     RecruitmentLoadingCard(modifier = Modifier.fillMaxWidth())
                 }
@@ -143,7 +143,7 @@ fun RecruitmentsScreen(
 fun RecruitmentsScreenPreview() {
     WantedlyAppTheme {
         RecruitmentsScreen(
-            uiState = UiState(isLoading = false, recruitments = Recruitment.fake()),
+            uiState = UiState(loading = UiState.Loading.NONE, recruitments = Recruitment.fake()),
             onAction = {},
             navigateToDetail = {},
         )
