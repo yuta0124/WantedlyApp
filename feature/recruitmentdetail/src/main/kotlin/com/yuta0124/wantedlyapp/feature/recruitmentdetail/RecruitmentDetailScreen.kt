@@ -98,14 +98,14 @@ fun RecruitmentDetailScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(16f / 9f)
+                        .aspectRatio(RecruitmentDetailDefaults.Ration)
                         .background(shimmerBrush(showShimmer = loadingThumbnail)),
                 )
             } else {
                 AsyncImage(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(16f / 9f)
+                        .aspectRatio(RecruitmentDetailDefaults.Ration)
                         .background(shimmerBrush(showShimmer = loadingThumbnail)),
                     model = uiState.recruitmentDetail.thumbnailUrl,
                     error = painterResource(R.drawable.no_image),

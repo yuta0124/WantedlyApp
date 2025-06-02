@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
+import com.yuta0124.wantedlyapp.feature.recruitmentdetail.RecruitmentDetailDefaults
 
 @Composable
 fun DetailDescriptionSection(
@@ -28,8 +29,14 @@ fun DetailDescriptionSection(
                 .drawBehind {
                     drawLine(
                         color = textBackgroundColor,
-                        start = Offset(0f, size.height / 3),
-                        end = Offset(size.width, size.height / 2),
+                        start = Offset(
+                            0f,
+                            size.height / RecruitmentDetailDefaults.DescriptionTitleBehindStartdiv,
+                        ),
+                        end = Offset(
+                            size.width,
+                            size.height / RecruitmentDetailDefaults.DescriptionTitleBehindEnddiv,
+                        ),
                         strokeWidth = titleTextStyle.fontSize.value.sp.toPx(),
                     )
                 },
