@@ -1,6 +1,7 @@
 package com.yuta0124.wantedlyapp.feature.recruitments.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -31,11 +32,12 @@ fun RecruitmentCard(
     title: String,
     companyName: String,
     companyLogoImage: String?,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
 
-    Card(modifier = modifier) {
+    Card(modifier = modifier.clickable(onClick = onClick)) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -70,11 +72,12 @@ fun RecruitmentCard(
 private fun RecruitmentCardPreview() {
     WantedlyAppTheme {
         RecruitmentCard(
+            modifier = Modifier.fillMaxWidth(),
             thumbnailUrl = "https://placehold.jp/150x150.png",
             title = "タイトル",
             companyName = "株式会社サンプル",
             companyLogoImage = "https://placehold.jp/150x150.png",
-            modifier = Modifier.fillMaxWidth(),
+            onClick = {},
         )
     }
 }
