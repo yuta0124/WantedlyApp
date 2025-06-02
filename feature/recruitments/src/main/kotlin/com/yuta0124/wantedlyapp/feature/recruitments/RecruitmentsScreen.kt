@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -15,11 +16,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yuta0124.wantedlyapp.core.design.system.R
@@ -28,6 +31,7 @@ import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecruitmentsScreen(
@@ -53,6 +57,8 @@ fun RecruitmentsScreen(
     modifier: Modifier = Modifier,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val lazyState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -65,14 +71,18 @@ fun RecruitmentsScreen(
         }
     ) { innerPadding ->
         if (uiState.isLoading) {
-            CircularIndicator(modifier = Modifier.fillMaxSize())
-            return@Scaffold
+            CircularIndicator(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .zIndex(1f),
+            )
         }
 
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize(),
+            state = lazyState,
             contentPadding = PaddingValues(start = 12.dp, end = 12.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -81,6 +91,12 @@ fun RecruitmentsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     keyword = uiState.keyword,
                     paddingValues = PaddingValues(vertical = 8.dp),
+                    onSearch = {
+                        scope.launch {
+                            lazyState.animateScrollToItem(0)
+                        }
+                        onAction(Intent.Search)
+                    },
                     onValueChanged = { onAction(Intent.KeywordChange(it)) },
                 )
             }
