@@ -17,8 +17,6 @@ data class Company(
     val addressSuffix: String?,
     @SerialName("avatar")
     val avatar: Avatar?,
-    @SerialName("font_color_code")
-    val fontColorCode: String?,
     @SerialName("founded_on")
     val foundedOn: String?,
     @SerialName("founder")

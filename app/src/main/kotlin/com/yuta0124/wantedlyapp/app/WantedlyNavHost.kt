@@ -28,7 +28,9 @@ fun WantedlyNavHost(
             )
         }
         composable<RecruitmentDetailRoute> {
-            RecruitmentDetailScreen()
+            RecruitmentDetailScreen(
+                onBackClick = navHostController::navigateUp,
+            )
         }
     }
 }

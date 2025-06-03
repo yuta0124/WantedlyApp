@@ -18,7 +18,7 @@ class NetworkService(private val httpClient: HttpClient) : INetworkService {
     }.body()
 
     override suspend fun fetchRecruitmentDetail(id: Int): RecruitmentDetailResponse =
-        httpClient.get("projects") {
+        httpClient.get("projects/") {
             url(id.toString())
         }.body()
 }

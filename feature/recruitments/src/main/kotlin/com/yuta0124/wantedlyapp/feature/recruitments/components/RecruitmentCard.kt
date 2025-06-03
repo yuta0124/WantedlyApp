@@ -1,7 +1,6 @@
 package com.yuta0124.wantedlyapp.feature.recruitments.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -37,7 +36,7 @@ fun RecruitmentCard(
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
 
-    Card(modifier = modifier.clickable(onClick = onClick)) {
+    Card(modifier = modifier, onClick = onClick) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
