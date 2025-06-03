@@ -21,6 +21,7 @@ import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
 import com.yuta0124.wantedlyapp.core.ui.component.CompanyInfoHeader
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 
+@Suppress("MagicNumber")
 @Composable
 fun UiCatalog(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
