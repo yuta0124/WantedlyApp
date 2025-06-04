@@ -1,4 +1,10 @@
 # WantedlyApp
+当ブランチで今後の課題で記載した以下の内容を完了させる。
+- Repository,ViewModelのテスコードを実装
+- エラーハンドリング
+- ブックマーク機能の実装
+- コードのリファクタリング
+
 
 ## 開発環境
 
@@ -60,10 +66,3 @@ UICatalogを利用することで、視覚的のどんな共通コンポーネ�
 
 #### 募集詳細画面
 ![after](https://github.com/user-attachments/assets/7ff92802-ff86-4eb4-8772-6fc7b9b71e81)
-
-
-## 今後の課題
-- Repository,ViewModelのテスコードを実装
-- エラーハンドリング
-- ブックマーク機能の実装
-- コードのリファクタリング
