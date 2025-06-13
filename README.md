@@ -66,3 +66,7 @@ UICatalogを利用することで、視覚的のどんな共通コンポーネ�
 
 #### 募集詳細画面
 ![after](https://github.com/user-attachments/assets/7ff92802-ff86-4eb4-8772-6fc7b9b71e81)
+
+#### ブックマーク機能及び画面間情報同期
+![bookmark](https://github.com/user-attachments/assets/0400dea6-bfce-40b6-8933-e0b971df0c08)
+
