@@ -6,8 +6,10 @@ import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentList
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,11 +18,26 @@ import javax.inject.Inject
 class RecruitmentsViewModel @Inject constructor(
     private val repository: IWantedlyRepository,
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
-    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
-
     private val initialPage = 0
     private var allPageCount = 0
+
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
+    val uiState: StateFlow<UiState> = combine(
+        _uiState,
+        repository.bookmarkCompanies,
+    ) { uiState, bookmarkCompanies ->
+        uiState.copy(
+            recruitments = uiState.recruitments.map { recruitment ->
+                val canBookmark = bookmarkCompanies.any { it.id == recruitment.id }
+                recruitment.copy(canBookMark = canBookmark)
+            }
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = UiState(),
+    )
+
 
     init {
         fetchRecruitments(keyword = null, page = initialPage)
@@ -48,6 +65,11 @@ class RecruitmentsViewModel @Inject constructor(
                 }
                 fetchRecruitments(keyword = uiState.value.keyword, page = initialPage)
             }
+
+            is Intent.BookmarkClick -> insertCompanyInBookmarkDatabase(
+                id = intent.id,
+                canBookmark = intent.canBookmark,
+            )
         }
     }
 
@@ -80,6 +102,12 @@ class RecruitmentsViewModel @Inject constructor(
                     allPageCount += response.data.size
                 }
             )
+        }
+    }
+
+    private fun insertCompanyInBookmarkDatabase(id: Int, canBookmark: Boolean) {
+        viewModelScope.launch {
+            if (canBookmark) repository.insertBookmarkById(id) else repository.deleteBookmarkById(id)
         }
     }
 }

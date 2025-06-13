@@ -50,7 +50,6 @@ fun RecruitmentsScreen(
     )
 }
 
-@Suppress("UnusedParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecruitmentsScreen(
@@ -120,14 +119,25 @@ fun RecruitmentsScreen(
             }
 
             items(uiState.recruitments, key = { it.id }) { recruitment ->
-                RecruitmentCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    thumbnailUrl = recruitment.thumbnailUrl,
-                    title = recruitment.title,
-                    companyName = recruitment.companyName,
-                    companyLogoImage = recruitment.companyLogoImage,
-                    onClick = { navigateToDetail(recruitment.id) },
-                )
+                recruitment.run {
+                    RecruitmentCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        thumbnailUrl = thumbnailUrl,
+                        title = title,
+                        companyName = companyName,
+                        companyLogoImage = companyLogoImage,
+                        canBookmark = canBookMark,
+                        onClick = { navigateToDetail(id) },
+                        onBookmarkClick = { canBookmark ->
+                            onAction(
+                                Intent.BookmarkClick(
+                                    id = id,
+                                    canBookmark = canBookmark,
+                                )
+                            )
+                        },
+                    )
+                }
             }
 
             if (uiState.loading == UiState.Loading.ADDITIONAL) {
