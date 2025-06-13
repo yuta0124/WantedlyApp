@@ -12,7 +12,7 @@ object WantedlyIcons {
     val Search = Icons.Rounded.Search
     val Back = Icons.AutoMirrored.Default.ArrowBack
     val BookmarkOn
-    @Composable get() = ImageVector.vectorResource(R.drawable.bookmark_on)
+        @Composable get() = ImageVector.vectorResource(R.drawable.bookmark_on)
     val BookmarkOff
         @Composable get() = ImageVector.vectorResource(R.drawable.bookmark_off)
 }

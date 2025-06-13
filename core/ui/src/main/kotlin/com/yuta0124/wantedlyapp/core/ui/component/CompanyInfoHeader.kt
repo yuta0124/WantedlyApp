@@ -2,9 +2,9 @@ package com.yuta0124.wantedlyapp.core.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -74,26 +74,21 @@ fun CompanyInfoHeader(
 
 @Preview(showBackground = true, widthDp = 320)
 @Composable
-private fun CompanyInfoHeaderPreview_CanBookmarkTrue() {
+private fun CompanyInfoHeaderPreview() {
     WantedlyAppTheme {
-        CompanyInfoHeader(
-            companyLogoUrl = "https://placehold.jp/150x150.png",
-            canBookmark = true,
-            companyName = "株式会社サンプル",
-            onBookmarkClick = {},
-        )
-    }
-}
-
-@Preview(showBackground = true, widthDp = 320)
-@Composable
-private fun CompanyInfoHeaderPreview_CanBookmarkFalse() {
-    WantedlyAppTheme {
-        CompanyInfoHeader(
-            companyLogoUrl = "https://placehold.jp/150x150.png",
-            canBookmark = false,
-            companyName = "株式会社サンプル",
-            onBookmarkClick = {},
-        )
+        Column {
+            CompanyInfoHeader(
+                companyLogoUrl = "https://placehold.jp/150x150.png",
+                canBookmark = true,
+                companyName = "株式会社サンプル",
+                onBookmarkClick = {},
+            )
+            CompanyInfoHeader(
+                companyLogoUrl = "https://placehold.jp/150x150.png",
+                canBookmark = false,
+                companyName = "株式会社サンプル",
+                onBookmarkClick = {},
+            )
+        }
     }
 }

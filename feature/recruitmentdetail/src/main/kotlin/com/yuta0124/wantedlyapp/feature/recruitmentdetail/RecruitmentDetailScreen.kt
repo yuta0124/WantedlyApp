@@ -26,7 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -131,7 +130,9 @@ fun RecruitmentDetailScreen(
                     companyLogoUrl = uiState.recruitmentDetail.companyLogoImage,
                     companyName = uiState.recruitmentDetail.companyName ?: stringResource(R.string.loading_text),
                     canBookmark = uiState.recruitmentDetail.canBookmark,
-                    onBookmarkClick = if (uiState.isLoading) null else {
+                    onBookmarkClick = if (uiState.isLoading) {
+                        null
+                    } else {
                         { onAction(Intent.BookmarkClick(it)) }
                     },
                 )

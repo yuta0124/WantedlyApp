@@ -38,7 +38,6 @@ class RecruitmentsViewModel @Inject constructor(
         initialValue = UiState(),
     )
 
-
     init {
         fetchRecruitments(keyword = null, page = initialPage)
     }

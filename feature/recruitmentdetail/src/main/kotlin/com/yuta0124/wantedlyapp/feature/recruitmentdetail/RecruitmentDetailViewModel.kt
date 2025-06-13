@@ -69,8 +69,11 @@ class RecruitmentDetailViewModel @Inject constructor(
     private fun insertCompanyInBookmarkDatabase(canBookmark: Boolean) {
         uiState.value.recruitmentDetail.id?.let { id ->
             viewModelScope.launch {
-                if (canBookmark) repository.insertBookmarkById(id)
-                else repository.deleteBookmarkById(id)
+                if (canBookmark) {
+                    repository.insertBookmarkById(id)
+                } else {
+                    repository.deleteBookmarkById(id)
+                }
             }
         }
     }
