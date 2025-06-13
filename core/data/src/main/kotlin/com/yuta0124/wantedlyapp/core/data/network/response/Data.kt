@@ -16,7 +16,7 @@ data class Data(
     @SerialName("description")
     val description: String?,
     @SerialName("can_bookmark")
-    val canBookmark: Boolean?,
+    val canBookmark: Boolean,
     @SerialName("can_support")
     val canSupport: Boolean?,
     @SerialName("candidate_count")

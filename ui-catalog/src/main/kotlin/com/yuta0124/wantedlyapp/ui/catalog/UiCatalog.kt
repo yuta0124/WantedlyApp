@@ -47,8 +47,18 @@ fun UiCatalog(modifier: Modifier = Modifier) {
                 CatalogSection("共通UI要素") {
                     CompanyInfoHeader(
                         modifier = Modifier.fillMaxWidth(),
+                        canBookmark = true,
                         companyLogoUrl = "https://placehold.jp/150x150.png",
                         companyName = "株式会社サンプル",
+                        onBookmarkClick = {},
+                    )
+
+                    CompanyInfoHeader(
+                        modifier = Modifier.fillMaxWidth(),
+                        canBookmark = false,
+                        companyLogoUrl = "https://placehold.jp/150x150.png",
+                        companyName = "株式会社サンプル",
+                        onBookmarkClick = {},
                     )
                 }
             }

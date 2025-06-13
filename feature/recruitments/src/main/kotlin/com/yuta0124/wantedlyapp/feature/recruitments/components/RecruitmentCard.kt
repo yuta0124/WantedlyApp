@@ -30,8 +30,10 @@ fun RecruitmentCard(
     thumbnailUrl: String,
     title: String,
     companyName: String,
+    canBookmark: Boolean,
     companyLogoImage: String?,
     onClick: () -> Unit,
+    onBookmarkClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
@@ -44,6 +46,8 @@ fun RecruitmentCard(
             CompanyInfoHeader(
                 companyLogoUrl = companyLogoImage,
                 companyName = companyName,
+                canBookmark = canBookmark,
+                onBookmarkClick = onBookmarkClick,
                 modifier = Modifier.fillMaxWidth(),
             )
             AsyncImage(
@@ -75,8 +79,10 @@ private fun RecruitmentCardPreview() {
             thumbnailUrl = "https://placehold.jp/150x150.png",
             title = "タイトル",
             companyName = "株式会社サンプル",
+            canBookmark = true,
             companyLogoImage = "https://placehold.jp/150x150.png",
             onClick = {},
+            onBookmarkClick = {},
         )
     }
 }

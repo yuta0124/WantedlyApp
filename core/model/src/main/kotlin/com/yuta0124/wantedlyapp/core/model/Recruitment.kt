@@ -4,6 +4,7 @@ data class Recruitment(
     val id: Int,
     val title: String,
     val companyName: String,
+    val canBookMark: Boolean,
     val companyLogoImage: String?,
     val thumbnailUrl: String,
 ) {
@@ -13,6 +14,7 @@ data class Recruitment(
             Recruitment(
                 id = it,
                 title = "サンプルタイトル文",
+                canBookMark = true,
                 companyName = "サンプル企業名",
                 companyLogoImage = "",
                 thumbnailUrl = "",

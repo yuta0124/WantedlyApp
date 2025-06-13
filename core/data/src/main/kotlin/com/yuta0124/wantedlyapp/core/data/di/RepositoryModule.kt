@@ -2,6 +2,7 @@ package com.yuta0124.wantedlyapp.core.data.di
 
 import com.yuta0124.wantedlyapp.core.common.AppDispatcher
 import com.yuta0124.wantedlyapp.core.common.AppDispatchers
+import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyDao
 import com.yuta0124.wantedlyapp.core.data.network.INetworkService
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.data.repository.WantedlyRepository
@@ -19,6 +20,7 @@ object RepositoryModule {
     @Provides
     fun provideWantedlyRepository(
         networkService: INetworkService,
+        bookmarkCompanyDao: BookmarkCompanyDao,
         @AppDispatcher(AppDispatchers.IO) ioDispatcher: CoroutineDispatcher,
-    ): IWantedlyRepository = WantedlyRepository(networkService, ioDispatcher)
+    ): IWantedlyRepository = WantedlyRepository(networkService, bookmarkCompanyDao, ioDispatcher)
 }

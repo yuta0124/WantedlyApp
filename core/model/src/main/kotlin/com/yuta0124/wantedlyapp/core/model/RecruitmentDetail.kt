@@ -6,6 +6,7 @@ data class RecruitmentDetail(
     val whatDescription: String = "",
     val whyDescription: String = "",
     val howDescription: String = "",
+    val canBookmark: Boolean = false,
     val id: Int? = null,
     val companyName: String? = null,
     val companyLogoImage: String? = null,

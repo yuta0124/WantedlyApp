@@ -50,6 +50,7 @@ fun RecruitmentDetailScreen(
     RecruitmentDetailScreen(
         uiState = uiState,
         onBackClick = onBackClick,
+        onAction = viewModel::onAction,
     )
 }
 
@@ -58,6 +59,7 @@ fun RecruitmentDetailScreen(
 fun RecruitmentDetailScreen(
     uiState: UiState,
     onBackClick: () -> Unit,
+    onAction: (Intent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
@@ -126,8 +128,13 @@ fun RecruitmentDetailScreen(
                 CompanyInfoHeader(
                     modifier = Modifier.fillMaxWidth(),
                     companyLogoUrl = uiState.recruitmentDetail.companyLogoImage,
-                    companyName = uiState.recruitmentDetail.companyName
-                        ?: stringResource(R.string.loading_text),
+                    companyName = uiState.recruitmentDetail.companyName ?: stringResource(R.string.loading_text),
+                    canBookmark = uiState.recruitmentDetail.canBookmark,
+                    onBookmarkClick = if (uiState.isLoading) {
+                        null
+                    } else {
+                        { onAction(Intent.BookmarkClick(it)) }
+                    },
                 )
 
                 Text(
@@ -165,6 +172,7 @@ fun RecruitmentDetailScreenPreview() {
         RecruitmentDetailScreen(
             uiState = UiState(recruitmentDetail = RecruitmentDetail.fake()),
             onBackClick = {},
+            onAction = {},
         )
     }
 }

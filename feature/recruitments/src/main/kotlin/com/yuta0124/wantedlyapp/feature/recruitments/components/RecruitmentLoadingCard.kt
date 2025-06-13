@@ -34,7 +34,9 @@ fun RecruitmentLoadingCard(
             CompanyInfoHeader(
                 companyLogoUrl = loadingText,
                 companyName = loadingText,
+                canBookmark = false,
                 modifier = Modifier.fillMaxWidth(),
+                onBookmarkClick = null,
             )
             Box(
                 modifier = Modifier
