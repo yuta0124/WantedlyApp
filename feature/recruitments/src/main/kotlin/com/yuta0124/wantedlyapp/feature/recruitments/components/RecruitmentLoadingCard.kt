@@ -24,7 +24,7 @@ import com.yuta0124.wantedlyapp.feature.recruitments.RecruitmentsDefaults
 fun RecruitmentLoadingCard(
     modifier: Modifier = Modifier,
 ) {
-    val loadingText = stringResource(R.string.loading_text)
+    val loadingText = stringResource(R.string.no_data)
 
     Card(modifier = modifier) {
         Column(

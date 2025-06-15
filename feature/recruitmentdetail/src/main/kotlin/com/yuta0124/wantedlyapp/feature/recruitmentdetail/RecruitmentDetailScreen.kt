@@ -16,6 +16,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -23,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -38,8 +41,10 @@ import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.RecruitmentDetail
 import com.yuta0124.wantedlyapp.core.ui.component.CompanyInfoHeader
+import com.yuta0124.wantedlyapp.core.ui.extensions.toMessage
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 import com.yuta0124.wantedlyapp.feature.recruitmentdetail.components.DetailDescriptionSection
+import kotlinx.coroutines.launch
 
 @Composable
 fun RecruitmentDetailScreen(
@@ -47,8 +52,28 @@ fun RecruitmentDetailScreen(
     viewModel: RecruitmentDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
+    val scope = rememberCoroutineScope()
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    uiEvents.forEach { event ->
+        when (event) {
+            is UiEvent.ShowErrorMessage -> {
+                val message = event.uiError.toMessage()
+                scope.launch {
+                    snackBarHostState.showSnackbar(
+                        message = message,
+                        withDismissAction = true,
+                    )
+                }
+                viewModel.consumeUiEvent(event)
+            }
+        }
+    }
+
     RecruitmentDetailScreen(
         uiState = uiState,
+        snackBarHostState = snackBarHostState,
         onBackClick = onBackClick,
         onAction = viewModel::onAction,
     )
@@ -58,12 +83,14 @@ fun RecruitmentDetailScreen(
 @Composable
 fun RecruitmentDetailScreen(
     uiState: UiState,
+    snackBarHostState: SnackbarHostState,
     onBackClick: () -> Unit,
     onAction: (Intent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var loadingThumbnail by remember { mutableStateOf(true) }
     val scrollState = rememberScrollState()
+    val noDataString = stringResource(R.string.no_data)
     val backgroundColor = if (scrollState.value <= 0) {
         MaterialTheme.colorScheme.background.copy(alpha = 0f)
     } else {
@@ -72,6 +99,7 @@ fun RecruitmentDetailScreen(
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             TopAppBar(
                 title = { /* no content */ },
@@ -96,7 +124,7 @@ fun RecruitmentDetailScreen(
                 .fillMaxSize()
                 .verticalScroll(scrollState),
         ) {
-            if (uiState.isLoading) {
+            if (uiState.loading == UiState.Loading.INDICATOR) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -117,6 +145,7 @@ fun RecruitmentDetailScreen(
                     contentDescription = null,
                 )
             }
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -128,37 +157,37 @@ fun RecruitmentDetailScreen(
                 CompanyInfoHeader(
                     modifier = Modifier.fillMaxWidth(),
                     companyLogoUrl = uiState.recruitmentDetail.companyLogoImage,
-                    companyName = uiState.recruitmentDetail.companyName ?: stringResource(R.string.loading_text),
+                    companyName = uiState.recruitmentDetail.companyName ?: noDataString,
                     canBookmark = uiState.recruitmentDetail.canBookmark,
-                    onBookmarkClick = if (uiState.isLoading) {
-                        null
-                    } else {
+                    onBookmarkClick = if (uiState.loading == UiState.Loading.NONE) {
                         { onAction(Intent.BookmarkClick(it)) }
-                    },
+                    } else {
+                        null
+                    }
                 )
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = uiState.recruitmentDetail.title,
+                    text = uiState.recruitmentDetail.title ?: noDataString,
                     style = MaterialTheme.typography.titleLarge,
                 )
 
                 DetailDescriptionSection(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.what_description_title),
-                    description = uiState.recruitmentDetail.whatDescription,
+                    description = uiState.recruitmentDetail.whatDescription ?: noDataString,
                 )
 
                 DetailDescriptionSection(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.why_description_title),
-                    description = uiState.recruitmentDetail.whyDescription,
+                    description = uiState.recruitmentDetail.whyDescription ?: noDataString,
                 )
 
                 DetailDescriptionSection(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.how_description_title),
-                    description = uiState.recruitmentDetail.howDescription,
+                    description = uiState.recruitmentDetail.howDescription ?: noDataString,
                 )
             }
         }
@@ -171,6 +200,7 @@ fun RecruitmentDetailScreenPreview() {
     WantedlyAppTheme {
         RecruitmentDetailScreen(
             uiState = UiState(recruitmentDetail = RecruitmentDetail.fake()),
+            snackBarHostState = SnackbarHostState(),
             onBackClick = {},
             onAction = {},
         )
