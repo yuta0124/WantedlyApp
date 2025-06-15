@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentList
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
+import com.yuta0124.wantedlyapp.core.ui.IErrorHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -17,9 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class RecruitmentsViewModel @Inject constructor(
     private val repository: IWantedlyRepository,
+    private val errorHandler: IErrorHandler,
 ) : ViewModel() {
     private val initialPage = 0
     private var allPageCount = 0
+
+    private val _uiEvents: MutableStateFlow<List<UiEvent>> = MutableStateFlow(emptyList())
+    val uiEvents: StateFlow<List<UiEvent>> = _uiEvents.asStateFlow()
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = combine(
@@ -39,7 +45,7 @@ class RecruitmentsViewModel @Inject constructor(
     )
 
     init {
-        fetchRecruitments(keyword = null, page = initialPage)
+        fetchRecruitments(keyword = null, page = initialPage, isInitialize = true)
     }
 
     fun onAction(intent: Intent) {
@@ -49,7 +55,14 @@ class RecruitmentsViewModel @Inject constructor(
             }
 
             Intent.AdditionalRecruitments -> {
-                if (uiState.value.loading == UiState.Loading.ADDITIONAL || uiState.value.isPageLimit) return
+                if (
+                    uiState.value.loading == UiState.Loading.ERROR ||
+                    uiState.value.loading == UiState.Loading.ADDITIONAL ||
+                    uiState.value.isPageLimit
+                ) {
+                    return
+                }
+
                 _uiState.update { it.copy(loading = UiState.Loading.ADDITIONAL) }
                 fetchRecruitments(keyword = uiState.value.keyword, page = allPageCount)
             }
@@ -72,17 +85,29 @@ class RecruitmentsViewModel @Inject constructor(
         }
     }
 
+    fun consumeUiEvent(target: UiEvent) {
+        _uiEvents.update { e -> e.filterNot { it == target } }
+    }
+
     private fun fetchRecruitments(
-        keyword: String?,
         page: Int,
+        keyword: String?,
+        isInitialize: Boolean = false,
     ) {
         viewModelScope.launch {
             repository.fetchRecruitments(
                 keyword = keyword,
                 page = page,
             ).fold(
-                ifLeft = { _ ->
-                    // TODO: エラーハンドリング
+                ifLeft = { error ->
+                    if (isInitialize) {
+                        _uiState.update { it.copy(loading = UiState.Loading.ERROR) }
+                    } else {
+                        _uiState.update { it.copy(loading = UiState.Loading.NONE) }
+                    }
+
+                    val uiEvent = UiEvent.ShowErrorMessage(errorHandler.onError(error))
+                    sendUiEvent(uiEvent)
                 },
                 ifRight = { response ->
                     if (response.data.isEmpty()) _uiState.update { it.copy(isPageLimit = true) }
@@ -108,5 +133,9 @@ class RecruitmentsViewModel @Inject constructor(
         viewModelScope.launch {
             if (canBookmark) repository.insertBookmarkById(id) else repository.deleteBookmarkById(id)
         }
+    }
+
+    private fun sendUiEvent(event: UiEvent) {
+        _uiEvents.update { it + listOf(event) }
     }
 }

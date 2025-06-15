@@ -12,5 +12,6 @@ data class UiState(
         NONE,
         INDICATOR,
         ADDITIONAL,
+        ERROR,
     }
 }
