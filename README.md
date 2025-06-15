@@ -70,3 +70,8 @@ UICatalogを利用することで、視覚的のどんな共通コンポーネ�
 #### ブックマーク機能及び画面間情報同期
 ![bookmark](https://github.com/user-attachments/assets/0400dea6-bfce-40b6-8933-e0b971df0c08)
 
+#### エラー表示
+| 一覧画面 | エラー時表示 |
+| --- | --- |
+|<img width=250 src=https://github.com/user-attachments/assets/56779979-d5c1-4730-808c-278280767897>|<img width=250 src=https://github.com/user-attachments/assets/700ae1c1-d8e2-4ffb-bb41-b16e601c5e82>|
+
