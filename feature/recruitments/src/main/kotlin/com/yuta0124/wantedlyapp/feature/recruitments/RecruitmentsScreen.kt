@@ -97,8 +97,8 @@ fun RecruitmentsScreen(
     val canScroll = remember {
         derivedStateOf {
             val visibleContentMaxHeight = lazyState.layoutInfo.visibleItemsInfo.sumOf { it.size } +
-                    lazyState.layoutInfo.beforeContentPadding +
-                    lazyState.layoutInfo.afterContentPadding
+                lazyState.layoutInfo.beforeContentPadding +
+                lazyState.layoutInfo.afterContentPadding
 
             return@derivedStateOf lazyListContentHeight < visibleContentMaxHeight
         }
