@@ -37,7 +37,6 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
-import com.yuta0124.wantedlyapp.core.ui.extensions.toMessage
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentLoadingCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
@@ -56,7 +55,7 @@ fun RecruitmentsScreen(
     uiEvents.forEach { event ->
         when (event) {
             is UiEvent.ShowErrorMessage -> {
-                val message = event.uiError.toMessage()
+                val message = stringResource(event.uiError.messageRes)
                 scope.launch {
                     snackBarHostState.showSnackbar(
                         message = message,

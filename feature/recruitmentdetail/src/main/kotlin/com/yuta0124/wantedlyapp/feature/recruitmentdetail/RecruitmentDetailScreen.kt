@@ -41,7 +41,6 @@ import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.RecruitmentDetail
 import com.yuta0124.wantedlyapp.core.ui.component.CompanyInfoHeader
-import com.yuta0124.wantedlyapp.core.ui.extensions.toMessage
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 import com.yuta0124.wantedlyapp.feature.recruitmentdetail.components.DetailDescriptionSection
 import kotlinx.coroutines.launch
@@ -59,7 +58,7 @@ fun RecruitmentDetailScreen(
     uiEvents.forEach { event ->
         when (event) {
             is UiEvent.ShowErrorMessage -> {
-                val message = event.uiError.toMessage()
+                val message = stringResource(event.uiError.messageRes)
                 scope.launch {
                     snackBarHostState.showSnackbar(
                         message = message,
