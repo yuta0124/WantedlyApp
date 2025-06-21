@@ -19,13 +19,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -84,9 +88,25 @@ fun RecruitmentsScreen(
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val lazyState = rememberLazyListState()
     val scope = rememberCoroutineScope()
+    var lazyListContentHeight by remember {
+        mutableIntStateOf(0)
+    }
+
+    val canScroll = remember {
+        derivedStateOf {
+            val visibleContentMaxHeight = lazyState.layoutInfo.visibleItemsInfo.sumOf { it.size } +
+                lazyState.layoutInfo.beforeContentPadding +
+                lazyState.layoutInfo.afterContentPadding
+
+            return@derivedStateOf lazyListContentHeight < visibleContentMaxHeight
+        }
+    }
+
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
+        canScroll = { canScroll.value }
+    )
 
     LaunchedEffect(Unit) {
         snapshotFlow {
@@ -125,7 +145,8 @@ fun RecruitmentsScreen(
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .fillMaxSize(),
+                .fillMaxSize()
+                .onSizeChanged { (_, height) -> lazyListContentHeight = height },
             state = lazyState,
             contentPadding = PaddingValues(start = 12.dp, end = 12.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
