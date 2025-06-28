@@ -10,7 +10,7 @@ data class Company(
     @SerialName("name")
     val name: String,
     @SerialName("url")
-    val url: String,
+    val url: String?,
     @SerialName("address_prefix")
     val addressPrefix: String?,
     @SerialName("address_suffix")
