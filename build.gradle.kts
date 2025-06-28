@@ -8,3 +8,11 @@ plugins {
     alias(libs.plugins.hilt.gradle.plugin) apply false
     alias(libs.plugins.ksp) apply false
 }
+
+subprojects {
+    plugins.withId("com.android.library") {
+        tasks.withType<Test>().configureEach {
+            useJUnitPlatform()
+        }
+    }
+}

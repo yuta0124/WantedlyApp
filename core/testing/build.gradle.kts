@@ -8,9 +8,9 @@ plugins {
 android.namespace = "com.yuta0124.wantedlyapp.core.testing"
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    api(libs.junit)
+    api(libs.androidx.junit)
+    api(libs.androidx.espresso.core)
+    api(libs.kotest.assertions.core)
+    api(libs.kotest.runner.junit5)
 }

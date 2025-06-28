@@ -24,6 +24,7 @@ hiltNavigationCompose = "1.2.0"
 coil = "3.2.0"
 coilNetworkOkhttp = "3.2.0"
 room = "2.7.1"
+kotest = "5.9.1"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -78,6 +79,8 @@ roborazzi-compose = { module = "io.github.takahirom.roborazzi:roborazzi-compose"
 roborazzi-preview-scanner-support = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
 composable-preview-scanner = { module = "io.github.sergio-sastre.ComposablePreviewScanner:android", version.ref = "composablePreviewScanner" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
