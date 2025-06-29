@@ -8,6 +8,8 @@ plugins {
 android.namespace = "com.yuta0124.wantedlyapp.core.testing"
 
 dependencies {
+    implementation(projects.core.data)
+
     api(libs.junit)
     api(libs.androidx.junit)
     api(libs.androidx.espresso.core)

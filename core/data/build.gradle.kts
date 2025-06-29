@@ -1,3 +1,6 @@
+import com.yuta0124.wantedlyapp.buildlogic.primitive.implementation
+import com.yuta0124.wantedlyapp.buildlogic.primitive.testImplementation
+
 plugins {
     alias(libs.plugins.wantedlyapp.android.library.plugin)
     alias(libs.plugins.wantedlyapp.android.kotlin.plugin)
@@ -20,6 +23,7 @@ android {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.model)
+    testImplementation(projects.core.testing)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
