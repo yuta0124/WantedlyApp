@@ -15,4 +15,5 @@ dependencies {
     api(libs.androidx.espresso.core)
     api(libs.kotest.assertions.core)
     api(libs.kotest.runner.junit5)
+    api(libs.mockk)
 }
