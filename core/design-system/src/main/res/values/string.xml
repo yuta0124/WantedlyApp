@@ -1,8 +1,14 @@
 <resources>
     <string name="recruitments_title">募集一覧</string>
     <string name="recruitments_keyword_placeholder">検索キーワード</string>
-    <string name="loading_text">---</string>
+    <string name="no_data">---</string>
     <string name="what_description_title">What?</string>
     <string name="why_description_title">Why?</string>
     <string name="how_description_title">How?</string>
+    <string name="bad_request_error_message">リクエストエラーが発生しました。\n時間をおいて再度お試しください。</string>
+    <string name="server_error_message">サーバエラーが発生しました。\n時間をおいて再度お試しください。</string>
+    <string name="network_error_message">ネットワークエラーが発生しました。\n時間をおいて再度お試しください。</string>
+    <string name="timeout_error_message">タイムアウトエラーが発生しました。\n時間をおいて再度お試しください。</string>
+    <string name="unexpected_error_message">想定外のエラーが発生しました。\n時間をおいて再度お試しください。</string>
+    <string name="initialize_error_description">データ取得に失敗しました</string>
 </resources>

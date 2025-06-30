@@ -1,11 +1,12 @@
 package com.yuta0124.wantedlyapp.core.model
 
 data class RecruitmentDetail(
-    val title: String = "",
     val thumbnailUrl: String = "",
-    val whatDescription: String = "",
-    val whyDescription: String = "",
-    val howDescription: String = "",
+    val title: String? = null,
+    val whatDescription: String? = null,
+    val whyDescription: String? = null,
+    val howDescription: String? = null,
+    val canBookmark: Boolean = false,
     val id: Int? = null,
     val companyName: String? = null,
     val companyLogoImage: String? = null,

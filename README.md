@@ -1,4 +1,10 @@
 # WantedlyApp
+当ブランチで今後の課題で記載した以下の内容を完了させる。
+- Repository,ViewModelのテスコードを実装
+- エラーハンドリング
+- ブックマーク機能の実装
+- コードのリファクタリング
+
 
 ## 開発環境
 
@@ -43,3 +49,10 @@
 #### 募集詳細画面
 ![after](https://github.com/user-attachments/assets/7ff92802-ff86-4eb4-8772-6fc7b9b71e81)
 
+#### ブックマーク機能及び画面間情報同期
+![bookmark](https://github.com/user-attachments/assets/0400dea6-bfce-40b6-8933-e0b971df0c08)
+
+#### エラー表示
+| 一覧画面 | エラー時表示 |
+| --- | --- |
+|<img width=250 src=https://github.com/user-attachments/assets/56779979-d5c1-4730-808c-278280767897>|<img width=250 src=https://github.com/user-attachments/assets/700ae1c1-d8e2-4ffb-bb41-b16e601c5e82>|

@@ -13,11 +13,14 @@ data class RecruitmentsResponse(
 )
 
 fun RecruitmentsResponse.toRecruitmentList(): List<Recruitment> = data.map {
-    Recruitment(
-        id = it.id,
-        title = it.title,
-        companyName = it.company.name,
-        companyLogoImage = it.company.avatar?.original,
-        thumbnailUrl = it.image.original,
-    )
+    it.run {
+        Recruitment(
+            id = id,
+            title = title,
+            companyName = company.name,
+            canBookMark = canBookmark,
+            companyLogoImage = company.avatar?.original,
+            thumbnailUrl = image.original,
+        )
+    }
 }
