@@ -2,6 +2,7 @@
 agp = "8.10.0"
 ksp = "2.0.21-1.0.27"
 kotlin = "2.0.21"
+croutineTest = "1.10.2"
 kotlinxSerialization = "1.8.1"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -24,6 +25,10 @@ hiltNavigationCompose = "1.2.0"
 coil = "3.2.0"
 coilNetworkOkhttp = "3.2.0"
 room = "2.7.1"
+kotest = "5.9.1"
+mockk = "1.14.4"
+junitVintageEngine = "5.11.2"
+truth = "1.4.4"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -78,6 +83,12 @@ roborazzi-compose = { module = "io.github.takahirom.roborazzi:roborazzi-compose"
 roborazzi-preview-scanner-support = { module = "io.github.takahirom.roborazzi:roborazzi-compose-preview-scanner-support", version.ref = "roborazzi" }
 composable-preview-scanner = { module = "io.github.sergio-sastre.ComposablePreviewScanner:android", version.ref = "composablePreviewScanner" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintageEngine" }
+croutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "croutineTest" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

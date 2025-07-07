@@ -10,21 +10,21 @@ data class Company(
     @SerialName("name")
     val name: String,
     @SerialName("url")
-    val url: String,
+    val url: String? = null,
     @SerialName("address_prefix")
-    val addressPrefix: String?,
+    val addressPrefix: String? = null,
     @SerialName("address_suffix")
-    val addressSuffix: String?,
+    val addressSuffix: String? = null,
     @SerialName("avatar")
-    val avatar: Avatar?,
+    val avatar: Avatar? = null,
     @SerialName("founded_on")
-    val foundedOn: String?,
+    val foundedOn: String? = null,
     @SerialName("founder")
-    val founder: String?,
+    val founder: String? = null,
     @SerialName("latitude")
-    val latitude: Double?,
+    val latitude: Double? = null,
     @SerialName("longitude")
-    val longitude: Double?,
+    val longitude: Double? = null,
     @SerialName("payroll_number")
-    val payrollNumber: Int?,
+    val payrollNumber: Int? = null,
 )
