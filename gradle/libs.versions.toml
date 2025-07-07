@@ -26,6 +26,7 @@ coilNetworkOkhttp = "3.2.0"
 room = "2.7.1"
 kotest = "5.9.1"
 mockk = "1.14.4"
+junit-vintage-engine = "5.11.2"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -83,6 +84,7 @@ robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectr
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit-vintage-engine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

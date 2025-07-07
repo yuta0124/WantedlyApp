@@ -39,6 +39,7 @@ dependencies {
     testImplementation(libs.roborazzi.preview.scanner.support)
     testImplementation(libs.composable.preview.scanner)
     testImplementation(libs.robolectric)
+    testImplementation(libs.junit.vintage.engine)
 }
 
 roborazzi {
