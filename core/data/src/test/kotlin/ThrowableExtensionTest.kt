@@ -95,7 +95,6 @@ class ThrowableExtensionTest : FunSpec(
                 val result = exception.toAppError()
 
                 result shouldBe AppError.TimeoutException
-
             }
 
             test("throw_SocketTimeoutException") {

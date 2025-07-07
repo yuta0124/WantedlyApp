@@ -7,7 +7,7 @@ import com.yuta0124.wantedlyapp.core.data.network.response.Image
 import com.yuta0124.wantedlyapp.core.data.network.response.RecruitmentDetailResponse
 import com.yuta0124.wantedlyapp.core.data.network.response.RecruitmentsResponse
 import com.yuta0124.wantedlyapp.core.data.repository.WantedlyRepository
-import database.TestBookmarkCompanyDar
+import database.TestBookmarkCompanyDao
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.core.test.testCoroutineScheduler
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -16,6 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import network.TestNetworkService
 
+@Suppress("TooGenericExceptionThrown")
 @OptIn(ExperimentalStdlibApi::class, ExperimentalCoroutinesApi::class)
 class WantedlyRepositoryTest : FunSpec(
     {
@@ -33,7 +34,7 @@ class WantedlyRepositoryTest : FunSpec(
                 )
                 val repository = WantedlyRepository(
                     fakeNetworkService,
-                    bookmarkCompanyDao = TestBookmarkCompanyDar(),
+                    bookmarkCompanyDao = TestBookmarkCompanyDao(),
                     ioDispatcher = UnconfinedTestDispatcher(scheduler = testCoroutineScheduler),
                 )
 
@@ -67,7 +68,7 @@ class WantedlyRepositoryTest : FunSpec(
                 )
                 val repository = WantedlyRepository(
                     fakeNetworkService,
-                    bookmarkCompanyDao = TestBookmarkCompanyDar(),
+                    bookmarkCompanyDao = TestBookmarkCompanyDao(),
                     ioDispatcher = UnconfinedTestDispatcher(scheduler = testCoroutineScheduler),
                 )
 
@@ -92,7 +93,7 @@ class WantedlyRepositoryTest : FunSpec(
 
                 val repository = WantedlyRepository(
                     fakeNetworkService,
-                    bookmarkCompanyDao = TestBookmarkCompanyDar(),
+                    bookmarkCompanyDao = TestBookmarkCompanyDao(),
                     ioDispatcher = UnconfinedTestDispatcher(scheduler = testCoroutineScheduler),
                 )
 
@@ -100,7 +101,6 @@ class WantedlyRepositoryTest : FunSpec(
 
                 actual.isLeft().shouldBeTrue()
             }
-
 
             test("fetchRecruitmentDetail_Either.Leftで値が返されること").config(
                 coroutineTestScope = true,
@@ -113,7 +113,7 @@ class WantedlyRepositoryTest : FunSpec(
 
                 val repository = WantedlyRepository(
                     fakeNetworkService,
-                    bookmarkCompanyDao = TestBookmarkCompanyDar(),
+                    bookmarkCompanyDao = TestBookmarkCompanyDao(),
                     ioDispatcher = UnconfinedTestDispatcher(scheduler = testCoroutineScheduler),
                 )
 

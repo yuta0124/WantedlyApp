@@ -5,7 +5,7 @@ import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyTable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class TestBookmarkCompanyDar : BookmarkCompanyDao {
+class TestBookmarkCompanyDao : BookmarkCompanyDao {
     override fun getBookmarkCompanies(): Flow<List<BookmarkCompanyTable>> =
         flow { emit(listOf()) }
 
