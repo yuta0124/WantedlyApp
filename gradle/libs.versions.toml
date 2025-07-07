@@ -2,6 +2,7 @@
 agp = "8.10.0"
 ksp = "2.0.21-1.0.27"
 kotlin = "2.0.21"
+croutineTest = "1.10.2"
 kotlinxSerialization = "1.8.1"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -26,7 +27,8 @@ coilNetworkOkhttp = "3.2.0"
 room = "2.7.1"
 kotest = "5.9.1"
 mockk = "1.14.4"
-junit-vintage-engine = "5.11.2"
+junitVintageEngine = "5.11.2"
+truth = "1.4.4"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -84,7 +86,9 @@ robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectr
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
-junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit-vintage-engine" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintageEngine" }
+croutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "croutineTest" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
