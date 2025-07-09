@@ -90,7 +90,6 @@ mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintageEngine" }
 croutine-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "croutineTest" }
 truth = { module = "com.google.truth:truth", version.ref = "truth" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
