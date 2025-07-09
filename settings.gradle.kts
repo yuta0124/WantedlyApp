@@ -27,6 +27,7 @@ include(
     ":feature",
     ":feature:recruitments",
     ":feature:recruitmentdetail",
+    ":feature:favorite",
     ":core",
     ":core:ui",
     ":core:data",
