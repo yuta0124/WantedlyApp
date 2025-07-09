@@ -12,4 +12,4 @@ class FavoriteViewModel @Inject constructor() : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
-} 
+}

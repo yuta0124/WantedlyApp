@@ -7,4 +7,4 @@ data class UiState(
         NONE,
         INDICATOR,
     }
-} 
+}
