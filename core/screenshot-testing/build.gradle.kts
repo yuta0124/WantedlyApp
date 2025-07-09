@@ -28,6 +28,7 @@ android {
 dependencies {
     implementation(projects.feature.recruitments)
     implementation(projects.feature.recruitmentdetail)
+    implementation(projects.feature.favorite)
 
     implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
