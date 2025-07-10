@@ -144,7 +144,7 @@ fun RecruitmentsScreen(
 
         LazyColumn(
             modifier = Modifier
-                .padding(innerPadding)
+                .padding(top = innerPadding.calculateTopPadding())
                 .fillMaxSize()
                 .onSizeChanged { (_, height) -> lazyListContentHeight = height },
             state = lazyState,

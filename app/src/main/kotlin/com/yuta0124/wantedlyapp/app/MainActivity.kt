@@ -1,13 +1,17 @@
 package com.yuta0124.wantedlyapp.app
 
+import BottomNavigation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +30,20 @@ class MainActivity : ComponentActivity() {
 fun WantedlyApp(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier) {
-            WantedlyNavHost()
+            val navController = rememberNavController()
+
+            Scaffold(
+                bottomBar = {
+                    BottomNavigation(
+                        navController = navController,
+                    )
+                }
+            ) { innerPadding ->
+                WantedlyNavHost(
+                    modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+                    navHostController = navController,
+                )
+            }
         }
     }
 }
