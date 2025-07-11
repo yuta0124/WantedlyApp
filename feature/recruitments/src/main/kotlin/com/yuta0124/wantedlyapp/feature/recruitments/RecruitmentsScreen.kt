@@ -97,21 +97,12 @@ fun RecruitmentsScreen(
         mutableIntStateOf(0)
     }
 
-    // スクロールトップ関数
-    val scrollToTop = remember {
-        {
-            scope.launch {
-                lazyListState.animateScrollToItem(0)
-            }
-        }
-    }
-
     val canScroll = remember {
         derivedStateOf {
             val visibleContentMaxHeight =
                 lazyListState.layoutInfo.visibleItemsInfo.sumOf { it.size } +
-                        lazyListState.layoutInfo.beforeContentPadding +
-                        lazyListState.layoutInfo.afterContentPadding
+                    lazyListState.layoutInfo.beforeContentPadding +
+                    lazyListState.layoutInfo.afterContentPadding
 
             return@derivedStateOf lazyListContentHeight < visibleContentMaxHeight
         }
