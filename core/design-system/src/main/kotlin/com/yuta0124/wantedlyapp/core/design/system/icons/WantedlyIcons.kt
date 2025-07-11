@@ -2,6 +2,7 @@ package com.yuta0124.wantedlyapp.core.design.system.icons
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.List
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 
 object WantedlyIcons {
     val Search = Icons.Rounded.Search
+    val List = Icons.AutoMirrored.Rounded.List
     val Favorite = Icons.Rounded.FavoriteBorder
     val Back = Icons.AutoMirrored.Default.ArrowBack
     val BookmarkOn

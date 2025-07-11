@@ -68,7 +68,7 @@ fun BottomNavigation(
                 val isSelected =
                     currentDestination.value?.hierarchy?.any { it.route == navItem.route::class.qualifiedName } == true
                 val icon = when (navItem) {
-                    BottomNavItems.Recruitments -> WantedlyIcons.Search
+                    BottomNavItems.Recruitments -> WantedlyIcons.List
                     BottomNavItems.Favorite -> WantedlyIcons.Favorite
                 }
                 NavigationBarItem(
@@ -116,6 +116,6 @@ fun BottomNavigation(
 
 @Serializable
 sealed class BottomNavItems<T>(val title: String, val route: T) {
-    data object Recruitments : BottomNavItems<RecruitmentsRoute>("search", RecruitmentsRoute)
+    data object Recruitments : BottomNavItems<RecruitmentsRoute>("recruitments", RecruitmentsRoute)
     data object Favorite : BottomNavItems<FavoriteRoute>("favorite", FavoriteRoute)
 }
