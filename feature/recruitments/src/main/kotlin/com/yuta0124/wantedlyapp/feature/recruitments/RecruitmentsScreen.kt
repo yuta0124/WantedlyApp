@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -48,6 +49,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RecruitmentsScreen(
+    lazyListState: LazyListState,
     navigateToDetail: (id: Int) -> Unit,
     viewModel: RecruitmentsViewModel = hiltViewModel(),
 ) {
@@ -73,6 +75,7 @@ fun RecruitmentsScreen(
 
     RecruitmentsScreen(
         uiState = uiState,
+        lazyListState = lazyListState,
         snackBarHostState = snackBarHostState,
         onAction = viewModel::onAction,
         navigateToDetail = navigateToDetail,
@@ -83,22 +86,32 @@ fun RecruitmentsScreen(
 @Composable
 fun RecruitmentsScreen(
     uiState: UiState,
+    lazyListState: LazyListState,
     snackBarHostState: SnackbarHostState,
     onAction: (Intent) -> Unit,
     navigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val lazyState = rememberLazyListState()
     val scope = rememberCoroutineScope()
     var lazyListContentHeight by remember {
         mutableIntStateOf(0)
     }
 
+    // スクロールトップ関数
+    val scrollToTop = remember {
+        {
+            scope.launch {
+                lazyListState.animateScrollToItem(0)
+            }
+        }
+    }
+
     val canScroll = remember {
         derivedStateOf {
-            val visibleContentMaxHeight = lazyState.layoutInfo.visibleItemsInfo.sumOf { it.size } +
-                lazyState.layoutInfo.beforeContentPadding +
-                lazyState.layoutInfo.afterContentPadding
+            val visibleContentMaxHeight =
+                lazyListState.layoutInfo.visibleItemsInfo.sumOf { it.size } +
+                        lazyListState.layoutInfo.beforeContentPadding +
+                        lazyListState.layoutInfo.afterContentPadding
 
             return@derivedStateOf lazyListContentHeight < visibleContentMaxHeight
         }
@@ -110,11 +123,11 @@ fun RecruitmentsScreen(
 
     LaunchedEffect(Unit) {
         snapshotFlow {
-            lazyState.layoutInfo.visibleItemsInfo
+            lazyListState.layoutInfo.visibleItemsInfo
         }.collect { visibleItems ->
             if (visibleItems.isNotEmpty()) {
                 val lastVisibleItem = visibleItems.last()
-                val totalItems = lazyState.layoutInfo.totalItemsCount
+                val totalItems = lazyListState.layoutInfo.totalItemsCount
 
                 if (lastVisibleItem.index >= totalItems - 2) {
                     onAction(Intent.AdditionalRecruitments)
@@ -147,7 +160,7 @@ fun RecruitmentsScreen(
                 .padding(top = innerPadding.calculateTopPadding())
                 .fillMaxSize()
                 .onSizeChanged { (_, height) -> lazyListContentHeight = height },
-            state = lazyState,
+            state = lazyListState,
             contentPadding = PaddingValues(start = 12.dp, end = 12.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
@@ -158,7 +171,7 @@ fun RecruitmentsScreen(
                     paddingValues = PaddingValues(vertical = 8.dp),
                     onSearch = {
                         scope.launch {
-                            lazyState.animateScrollToItem(0)
+                            lazyListState.animateScrollToItem(0)
                         }
                         onAction(Intent.Search)
                     },
@@ -224,6 +237,7 @@ fun RecruitmentsScreenPreview() {
                 loading = UiState.Loading.NONE,
                 recruitments = Recruitment.fake()
             ),
+            lazyListState = rememberLazyListState(),
             snackBarHostState = SnackbarHostState(),
             onAction = {},
             navigateToDetail = {},

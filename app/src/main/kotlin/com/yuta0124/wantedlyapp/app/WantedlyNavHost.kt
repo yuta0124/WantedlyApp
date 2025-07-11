@@ -1,5 +1,6 @@
 package com.yuta0124.wantedlyapp.app
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -14,6 +15,7 @@ import com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation.Recruitment
 
 @Composable
 fun WantedlyNavHost(
+    recruitmentsLazyListState: LazyListState,
     modifier: Modifier = Modifier,
     navHostController: NavHostController = rememberNavController(),
 ) {
@@ -22,7 +24,10 @@ fun WantedlyNavHost(
         navController = navHostController,
         startDestination = RecruitmentsGraph,
     ) {
-        recruitmentsGraph(navHostController)
+        recruitmentsGraph(
+            navController = navHostController,
+            recruitmentsLazyListState = recruitmentsLazyListState,
+        )
         favoriteGraph()
         composable<RecruitmentDetailRoute> {
             RecruitmentDetailScreen(

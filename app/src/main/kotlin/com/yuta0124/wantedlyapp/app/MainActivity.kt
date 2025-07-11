@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -31,16 +32,19 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier) {
             val navController = rememberNavController()
+            val recruitmentsLazyListState = rememberLazyListState()
 
             Scaffold(
                 bottomBar = {
                     BottomNavigation(
+                        recruitmentsLazyListState = recruitmentsLazyListState,
                         navController = navController,
                     )
                 }
             ) { innerPadding ->
                 WantedlyNavHost(
                     modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+                    recruitmentsLazyListState = recruitmentsLazyListState,
                     navHostController = navController,
                 )
             }
