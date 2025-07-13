@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.wantedlyapp.hilt.plugin)
     alias(libs.plugins.wantedlyapp.detekt)
     alias(libs.plugins.wantedlyapp.room.plugin)
-    alias(libs.plugins.room)
 }
 
 android {
@@ -18,10 +17,6 @@ android {
     buildFeatures {
         buildConfig = true
     }
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
