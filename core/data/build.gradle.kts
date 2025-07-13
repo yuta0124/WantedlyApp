@@ -1,5 +1,4 @@
 import com.yuta0124.wantedlyapp.buildlogic.primitive.implementation
-import com.yuta0124.wantedlyapp.buildlogic.primitive.testImplementation
 
 plugins {
     alias(libs.plugins.wantedlyapp.android.library.plugin)
