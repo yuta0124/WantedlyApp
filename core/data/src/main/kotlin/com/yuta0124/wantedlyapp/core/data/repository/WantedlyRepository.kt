@@ -39,15 +39,15 @@ class WantedlyRepository(
         }
     }
 
-    override suspend fun insertBookmarkById(id: Int) {
+    override suspend fun insertBookmark(bookmarkCompany: BookmarkCompanyTable) {
         withContext(ioDispatcher) {
-            bookmarkCompanyDao.insertCompany(BookmarkCompanyTable(id = id))
+            bookmarkCompanyDao.insertCompany(bookmarkCompany)
         }
     }
 
     override suspend fun deleteBookmarkById(id: Int) {
         withContext(ioDispatcher) {
-            bookmarkCompanyDao.deleteTargetCompany(BookmarkCompanyTable(id = id))
+            bookmarkCompanyDao.deleteBookmarkById(id)
         }
     }
 }
