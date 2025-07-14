@@ -2,6 +2,7 @@ package com.yuta0124.wantedlyapp.feature.recruitments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyTable
 import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentList
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.ui.IErrorHandler
@@ -131,7 +132,22 @@ class RecruitmentsViewModel @Inject constructor(
 
     private fun insertCompanyInBookmarkDatabase(id: Int, canBookmark: Boolean) {
         viewModelScope.launch {
-            if (canBookmark) repository.insertBookmarkById(id) else repository.deleteBookmarkById(id)
+            if (canBookmark) {
+                val recruitment = uiState.value.recruitments.find { it.id == id }
+                recruitment?.let {
+                    val bookmarkCompany = BookmarkCompanyTable(
+                        id = it.id,
+                        title = it.title,
+                        companyName = it.companyName,
+                        canBookMark = it.canBookMark,
+                        companyLogoImage = it.companyLogoImage,
+                        thumbnailUrl = it.thumbnailUrl
+                    )
+                    repository.insertBookmark(bookmarkCompany)
+                }
+            } else {
+                repository.deleteBookmarkById(id)
+            }
         }
     }
 
