@@ -16,4 +16,7 @@ interface BookmarkCompanyDao {
 
     @Delete
     suspend fun deleteTargetCompany(target: BookmarkCompanyTable)
+
+    @Query("DELETE FROM bookmark_company_table WHERE id = :id")
+    suspend fun deleteBookmarkById(id: Int)
 }
