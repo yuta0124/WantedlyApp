@@ -12,4 +12,5 @@
     <string name="timeout_error_message">タイムアウトエラーが発生しました。\n時間をおいて再度お試しください。</string>
     <string name="unexpected_error_message">想定外のエラーが発生しました。\n時間をおいて再度お試しください。</string>
     <string name="initialize_error_description">データ取得に失敗しました</string>
+    <string name="no_favorites">お気に入りがありません</string>
 </resources>
