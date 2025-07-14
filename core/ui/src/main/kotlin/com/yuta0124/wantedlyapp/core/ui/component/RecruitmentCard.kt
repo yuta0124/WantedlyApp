@@ -23,6 +23,8 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 
+private const val RECRUITMENT_CARD_RATIO = 16f / 9f
+
 @Composable
 fun RecruitmentCard(
     thumbnailUrl: String,
@@ -51,7 +53,7 @@ fun RecruitmentCard(
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(RecruitmentCardDefaults.Ratio)
+                    .aspectRatio(RECRUITMENT_CARD_RATIO)
                     .background(shimmerBrush(showShimmer = loadingThumbnail)),
                 model = thumbnailUrl,
                 error = painterResource(R.drawable.no_image),
@@ -66,10 +68,6 @@ fun RecruitmentCard(
             )
         }
     }
-}
-
-object RecruitmentCardDefaults {
-    const val Ratio = 16f / 9f
 }
 
 @Preview(showBackground = true)
