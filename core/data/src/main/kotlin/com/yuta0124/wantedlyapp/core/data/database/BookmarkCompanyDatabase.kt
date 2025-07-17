@@ -1,5 +1,6 @@
 package com.yuta0124.wantedlyapp.core.data.database
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
@@ -8,7 +9,7 @@ import androidx.room.RoomDatabase
     version = 2,
     exportSchema = true,
     autoMigrations = [
-        androidx.room.AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
     ]
 )
 abstract class BookmarkCompanyDatabase : RoomDatabase() {
