@@ -53,7 +53,7 @@ class BookmarkCompanyDaoTest {
     }
 
     @Test
-    fun `deleteCompany_特定のidを持つデータ削除ができること`() = runTest {
+    fun `deleteBookmarkById_特定のidを持つデータ削除ができること`() = runTest {
         val data1 = BookmarkCompanyTable(
             1,
             "title",
