@@ -37,7 +37,14 @@ class BookmarkCompanyDaoTest {
 
     @Test
     fun `insertCompany_データが挿入されること`() = runTest {
-        val data = BookmarkCompanyTable(0)
+        val data = BookmarkCompanyTable(
+            0,
+            "title",
+            "companyName",
+            false,
+            "thumbnailUrl",
+            "companyLogoImage",
+        )
 
         dao.insertCompany(data)
         val actual = dao.getBookmarkCompanies().first().first()
@@ -46,13 +53,21 @@ class BookmarkCompanyDaoTest {
     }
 
     @Test
-    fun `deleteCompany_特定のidを持つデータ削除ができること`() = runTest {
-        val data1 = BookmarkCompanyTable(0)
-        val data2 = BookmarkCompanyTable(1)
+    fun `deleteBookmarkById_特定のidを持つデータ削除ができること`() = runTest {
+        val data1 = BookmarkCompanyTable(
+            1,
+            "title",
+            "companyName",
+            false,
+            "thumbnailUrl",
+            "companyLogoImage",
+        )
+        val data2 = data1.copy(id = 2)
+
         dao.insertCompany(data1)
         dao.insertCompany(data2)
 
-        dao.deleteTargetCompany(data1)
+        dao.deleteBookmarkById(data1.id)
         val actual = dao.getBookmarkCompanies().first()
 
         assertThat(actual).doesNotContain(data1)

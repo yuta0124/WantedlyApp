@@ -1,15 +1,15 @@
 package com.yuta0124.wantedlyapp.core.model
 
 data class RecruitmentDetail(
+    val id: Int = -1,
+    val title: String = "",
+    val companyName: String = "",
     val thumbnailUrl: String = "",
-    val title: String? = null,
+    val canBookmark: Boolean = false,
+    val companyLogoImage: String? = null,
     val whatDescription: String? = null,
     val whyDescription: String? = null,
     val howDescription: String? = null,
-    val canBookmark: Boolean = false,
-    val id: Int? = null,
-    val companyName: String? = null,
-    val companyLogoImage: String? = null,
 ) {
     companion object {
         fun fake(): RecruitmentDetail = RecruitmentDetail(

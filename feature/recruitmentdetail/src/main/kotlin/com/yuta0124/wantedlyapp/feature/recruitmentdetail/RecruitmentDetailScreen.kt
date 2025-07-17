@@ -156,7 +156,7 @@ fun RecruitmentDetailScreen(
                 CompanyInfoHeader(
                     modifier = Modifier.fillMaxWidth(),
                     companyLogoUrl = uiState.recruitmentDetail.companyLogoImage,
-                    companyName = uiState.recruitmentDetail.companyName ?: noDataString,
+                    companyName = uiState.recruitmentDetail.companyName.ifBlank { noDataString },
                     canBookmark = uiState.recruitmentDetail.canBookmark,
                     onBookmarkClick = if (uiState.loading == UiState.Loading.NONE) {
                         { onAction(Intent.BookmarkClick(it)) }
@@ -167,7 +167,7 @@ fun RecruitmentDetailScreen(
 
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = uiState.recruitmentDetail.title ?: noDataString,
+                    text = uiState.recruitmentDetail.title.ifBlank { noDataString },
                     style = MaterialTheme.typography.titleLarge,
                 )
 

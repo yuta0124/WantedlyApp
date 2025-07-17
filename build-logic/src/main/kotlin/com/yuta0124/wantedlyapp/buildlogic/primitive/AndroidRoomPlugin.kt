@@ -22,10 +22,17 @@ class AndroidRoomPlugin : Plugin<Project> {
                 arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
             }
 
+            extensions.configure<com.android.build.gradle.LibraryExtension> {
+                sourceSets {
+                    getByName("androidTest").assets.srcDir("$projectDir/schemas")
+                }
+            }
+
             dependencies {
                 implementation(libs.library("room"))
                 implementation(libs.library("room-runtime"))
                 ksp(libs.library("room-compiler"))
+                androidTestImplementation(libs.library("room-testing"))
             }
         }
     }
