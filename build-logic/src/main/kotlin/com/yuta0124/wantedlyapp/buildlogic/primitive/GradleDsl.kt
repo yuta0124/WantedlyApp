@@ -28,6 +28,12 @@ fun DependencyHandlerScope.testImplementation(
     add("testImplementation", artifact)
 }
 
+fun DependencyHandlerScope.androidTestImplementation(
+    artifact: MinimalExternalModuleDependency,
+) {
+    add("androidTestImplementation", artifact)
+}
+
 fun DependencyHandlerScope.detektPlugins(
     artifact: MinimalExternalModuleDependency,
 ) {

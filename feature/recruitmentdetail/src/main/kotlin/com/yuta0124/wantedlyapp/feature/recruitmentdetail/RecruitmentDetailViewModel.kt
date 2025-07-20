@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyTable
 import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentDetail
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.ui.IErrorHandler
@@ -78,11 +79,19 @@ class RecruitmentDetailViewModel @Inject constructor(
         }
     }
 
-    private fun insertCompanyInBookmarkDatabase(canBookmark: Boolean) {
-        uiState.value.recruitmentDetail.id?.let { id ->
-            viewModelScope.launch {
+    private fun insertCompanyInBookmarkDatabase(newCanBookmark: Boolean) {
+        viewModelScope.launch {
+            with(uiState.value.recruitmentDetail) {
                 if (canBookmark) {
-                    repository.insertBookmarkById(id)
+                    val bookmarkCompany = BookmarkCompanyTable(
+                        id = id,
+                        title = title,
+                        companyName = companyName,
+                        canBookMark = newCanBookmark,
+                        companyLogoImage = companyLogoImage,
+                        thumbnailUrl = thumbnailUrl,
+                    )
+                    repository.insertBookmark(bookmarkCompany)
                 } else {
                     repository.deleteBookmarkById(id)
                 }

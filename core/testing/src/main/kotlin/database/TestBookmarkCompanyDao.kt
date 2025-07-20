@@ -13,7 +13,7 @@ class TestBookmarkCompanyDao : BookmarkCompanyDao {
         /* noop */
     }
 
-    override suspend fun deleteTargetCompany(target: BookmarkCompanyTable) {
+    override suspend fun deleteBookmarkById(id: Int) {
         /* noop */
     }
 }

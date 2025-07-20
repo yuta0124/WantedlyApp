@@ -17,6 +17,6 @@ interface IWantedlyRepository {
 
     suspend fun fetchRecruitmentDetail(id: Int): Either<AppError, RecruitmentDetailResponse>
 
-    suspend fun insertBookmarkById(id: Int)
+    suspend fun insertBookmark(bookmarkCompany: BookmarkCompanyTable)
     suspend fun deleteBookmarkById(id: Int)
 }

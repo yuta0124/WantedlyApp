@@ -28,7 +28,7 @@ fun WantedlyNavHost(
             navController = navHostController,
             recruitmentsLazyListState = recruitmentsLazyListState,
         )
-        favoriteGraph()
+        favoriteGraph(navController = navHostController)
         composable<RecruitmentDetailRoute> {
             RecruitmentDetailScreen(
                 onBackClick = navHostController::navigateUp,

@@ -42,7 +42,7 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.CircularIndicator
-import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentCard
+import com.yuta0124.wantedlyapp.core.ui.component.RecruitmentCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.RecruitmentLoadingCard
 import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
 import kotlinx.coroutines.launch
