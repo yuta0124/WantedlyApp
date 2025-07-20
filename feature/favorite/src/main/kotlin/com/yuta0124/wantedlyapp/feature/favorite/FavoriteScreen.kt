@@ -66,7 +66,7 @@ fun FavoriteScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(innerPadding),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = stringResource(R.string.no_favorites),
@@ -86,7 +86,7 @@ fun FavoriteScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     items(uiState.recruitments, key = { it.id }) { recruitment ->
-                        recruitment.run {
+                        with(recruitment) {
                             RecruitmentCard(
                                 modifier = Modifier.fillMaxWidth(),
                                 thumbnailUrl = thumbnailUrl,

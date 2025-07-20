@@ -14,6 +14,6 @@ class TestBookmarkCompanyDao : BookmarkCompanyDao {
     }
 
     override suspend fun deleteBookmarkById(id: Int) {
-        TODO("Not yet implemented")
+        /* noop */
     }
 }
