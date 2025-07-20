@@ -40,7 +40,7 @@ class BookmarkCompanyDatabaseMigrationTest {
             // レコードを確認
             it.moveToFirst()
             assert(it.getInt(it.getColumnIndexOrThrow("id")) == 1)
-            assert(it.getString(it.getColumnIndexOrThrow("title")) == "")
+            assert(it.getString(it.getColumnIndexOrThrow("title")) == "rere")
             assert(it.getString(it.getColumnIndexOrThrow("companyName")) == "")
             assert(it.getInt(it.getColumnIndexOrThrow("canBookMark")) == 1)
             assert(it.getString(it.getColumnIndexOrThrow("thumbnailUrl")) == "")
