@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class BookmarkCompanyDatabaseMigrationTest {
-    private val TEST_DB = "migration-test"
+    private val testDb = "migration-test"
 
     @get:Rule
     val helper: MigrationTestHelper = MigrationTestHelper(
@@ -20,7 +20,7 @@ class BookmarkCompanyDatabaseMigrationTest {
     @Test
     fun version1_To_version2() {
         helper.createDatabase(
-            name = TEST_DB,
+            name = testDb,
             version = 1,
         ).apply {
             execSQL("INSERT INTO bookmark_company_table (id) VALUES (1)")
@@ -28,7 +28,7 @@ class BookmarkCompanyDatabaseMigrationTest {
         }
 
         val db = helper.runMigrationsAndValidate(
-            name = TEST_DB,
+            name = testDb,
             version = 2,
             validateDroppedTables = true,
         )
