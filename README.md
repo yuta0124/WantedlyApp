@@ -31,6 +31,11 @@
 | ktor | Kttpクライアント | `3.1.3` |
 | coil | 画像読み込み | `3.2.0` |
 | coilNetworkOkhttp | 同上 | `3.2.0` |
+| Room | ローカルデータベース | `2.7.1` |
+| kotest | 単体テスト | `5.9.1` |
+| truth | 同上 | `1.4.4` |
+| mockk | 同上 | `1.14.4` |
+| junitVintageEngine | Junit4/Junit5の併用 | `5.11.2` |
 
 #### 募集一覧画面 - 検索
 ![before](https://github.com/user-attachments/assets/d912c7cf-fad5-4672-b0f2-c1b1720729ee)
@@ -48,3 +53,8 @@
 | 一覧画面 | エラー時表示 |
 | --- | --- |
 |<img width=250 src=https://github.com/user-attachments/assets/56779979-d5c1-4730-808c-278280767897>|<img width=250 src=https://github.com/user-attachments/assets/700ae1c1-d8e2-4ffb-bb41-b16e601c5e82>|
+
+#### 追加機能
+
+##### ボトムナビゲーション
+<img width="250" height="2400"  src="https://github.com/user-attachments/assets/dd66f942-39bf-4d5f-92e3-7533f493ac14" />
