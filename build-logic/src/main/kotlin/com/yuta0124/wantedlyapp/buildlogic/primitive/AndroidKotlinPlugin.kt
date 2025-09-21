@@ -3,7 +3,9 @@ package com.yuta0124.wantedlyapp.buildlogic.primitive
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 class AndroidKotlinPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -15,14 +17,17 @@ class AndroidKotlinPlugin : Plugin<Project> {
             }
 
             tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
-                kotlinOptions.jvmTarget = "17"
+                compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_17)
+                    allWarningsAsErrors.set(properties["warningsAsErrors"] as? Boolean ?: false)
+                    freeCompilerArgs.add("-Xcontext-receivers")
+                }
             }
 
             android {
-                kotlinOptions {
-                    allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
-                    freeCompilerArgs = freeCompilerArgs + listOf("-Xcontext-receivers")
-                    jvmTarget = JavaVersion.VERSION_17.toString()
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
                 }
             }
 
