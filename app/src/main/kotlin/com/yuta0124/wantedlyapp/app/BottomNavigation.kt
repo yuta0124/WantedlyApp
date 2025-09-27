@@ -1,3 +1,4 @@
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,53 +11,48 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation3.runtime.NavKey
+import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
-import com.yuta0124.wantedlyapp.feature.favorite.navigation.FavoriteRoute
-import com.yuta0124.wantedlyapp.feature.recruitments.navigation.RecruitmentsRoute
+import com.yuta0124.wantedlyapp.feature.favorite.navigation.FavoriteNavKey
+import com.yuta0124.wantedlyapp.feature.recruitments.navigation.RecruitmentsNavKey
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
 
 @Composable
 fun BottomNavigation(
     recruitmentsLazyListState: LazyListState,
-    navController: NavHostController,
+    currentDestination: NavKey?,
+    navigateTo: (NavKey) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val scope = rememberCoroutineScope()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
     val bottomNavItems = listOf(
         BottomNavItems.Recruitments,
         BottomNavItems.Favorite,
     )
-    val currentDestination = remember {
-        derivedStateOf {
-            navBackStackEntry?.destination
-        }
-    }
-    val bottomBarVisible = remember {
-        derivedStateOf {
-            when (currentDestination.value?.route) {
-                RecruitmentsRoute::class.qualifiedName,
-                FavoriteRoute::class.qualifiedName -> true
+
+    val bottomBarVisible by remember(currentDestination) {
+        mutableStateOf(
+            when (currentDestination) {
+                RecruitmentsNavKey,
+                FavoriteNavKey -> true
 
                 else -> false
             }
-        }
+        )
     }
 
     AnimatedVisibility(
-        visible = bottomBarVisible.value,
+        visible = bottomBarVisible,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {
@@ -65,21 +61,17 @@ fun BottomNavigation(
             containerColor = MaterialTheme.colorScheme.background,
         ) {
             bottomNavItems.forEach { navItem ->
-                val isSelected =
-                    currentDestination.value?.hierarchy?.any { it.route == navItem.route::class.qualifiedName } == true
-                val icon = when (navItem) {
-                    BottomNavItems.Recruitments -> WantedlyIcons.List
-                    BottomNavItems.Favorite -> WantedlyIcons.Favorite
-                }
+                val isSelected = currentDestination == navItem.route
+
                 NavigationBarItem(
                     icon = {
                         Icon(
-                            imageVector = icon,
+                            imageVector = navItem.icon,
                             contentDescription = null,
                             modifier = Modifier.size(24.dp),
                         )
                     },
-                    label = { Text(navItem.title) },
+                    label = { Text(stringResource(navItem.titleRes)) },
                     selected = isSelected,
                     onClick = {
                         when {
@@ -90,15 +82,7 @@ fun BottomNavigation(
                                 }
                             }
 
-                            else -> {
-                                navController.navigate(navItem.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
+                            else -> navigateTo(navItem.route)
                         }
                     },
                     colors = NavigationBarItemDefaults.colors(
@@ -114,8 +98,20 @@ fun BottomNavigation(
     }
 }
 
-@Serializable
-sealed class BottomNavItems<T>(val title: String, val route: T) {
-    data object Recruitments : BottomNavItems<RecruitmentsRoute>("recruitments", RecruitmentsRoute)
-    data object Favorite : BottomNavItems<FavoriteRoute>("favorite", FavoriteRoute)
+sealed class BottomNavItems<T>(
+    @param:StringRes val titleRes: Int,
+    val icon: ImageVector,
+    val route: T,
+) {
+    data object Recruitments : BottomNavItems<RecruitmentsNavKey>(
+        titleRes = R.string.recruitments,
+        icon = WantedlyIcons.List,
+        route = RecruitmentsNavKey,
+    )
+
+    data object Favorite : BottomNavItems<FavoriteNavKey>(
+        titleRes = R.string.favorite,
+        WantedlyIcons.Favorite,
+        FavoriteNavKey,
+    )
 }

@@ -6,13 +6,12 @@ import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyTable
 import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentList
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.ui.IErrorHandler
+import com.yuta0124.wantedlyapp.core.ui.extensions.stateInWhileSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,11 +38,7 @@ class RecruitmentsViewModel @Inject constructor(
                 recruitment.copy(canBookMark = canBookmark)
             }
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiState(),
-    )
+    }.stateInWhileSubscribed(UiState())
 
     init {
         fetchRecruitments(keyword = null, page = initialPage, isInitialize = true)

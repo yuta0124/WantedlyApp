@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import coil3.compose.AsyncImage
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
@@ -47,11 +48,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RecruitmentDetailScreen(
+    viewModel: RecruitmentDetailViewModel,
     onBackClick: () -> Unit,
-    viewModel: RecruitmentDetailViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
+    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
+    val uiState by viewModel.uiState.collectAsState()
+    val uiEvents by viewModel.uiEvents.collectAsState()
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -148,7 +150,6 @@ fun RecruitmentDetailScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = innerPadding.calculateBottomPadding())
                     .padding(horizontal = 16.dp)
                     .padding(top = 4.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
