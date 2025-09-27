@@ -1,4 +1,6 @@
 <resources>
+    <string name="recruitments">recruitments</string>
+    <string name="favorite">favorite</string>
     <string name="recruitments_title">募集一覧</string>
     <string name="favorites_title">お気に入り</string>
     <string name="recruitments_keyword_placeholder">検索キーワード</string>

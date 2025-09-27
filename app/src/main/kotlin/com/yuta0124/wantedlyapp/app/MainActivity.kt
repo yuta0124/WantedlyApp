@@ -11,9 +11,22 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
+import com.yuta0124.wantedlyapp.feature.favorite.navigation.FavoriteNavKey
+import com.yuta0124.wantedlyapp.feature.favorite.navigation.favoritesEntry
+import com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation.RecruitmentDetailNavKey
+import com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation.recruitmentDetailEntry
+import com.yuta0124.wantedlyapp.feature.recruitments.navigation.RecruitmentsNavKey
+import com.yuta0124.wantedlyapp.feature.recruitments.navigation.recruitmentsEntry
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,21 +44,42 @@ class MainActivity : ComponentActivity() {
 fun WantedlyApp(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier) {
-            val navController = rememberNavController()
             val recruitmentsLazyListState = rememberLazyListState()
+            val backStack: SnapshotStateList<NavKey> = rememberNavBackStack(RecruitmentsNavKey)
 
             Scaffold(
                 bottomBar = {
                     BottomNavigation(
                         recruitmentsLazyListState = recruitmentsLazyListState,
-                        navController = navController,
+                        currentDestination = backStack.lastOrNull(),
+                        navigateTo = backStack::add,
                     )
                 }
             ) { innerPadding ->
-                WantedlyNavHost(
+                NavDisplay(
                     modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
-                    recruitmentsLazyListState = recruitmentsLazyListState,
-                    navHostController = navController,
+                    backStack = backStack,
+                    entryDecorators = listOf(
+                        rememberSceneSetupNavEntryDecorator(),
+                        rememberSavedStateNavEntryDecorator(),
+                        rememberViewModelStoreNavEntryDecorator(),
+                    ),
+                    entryProvider = entryProvider {
+                        recruitmentsEntry(
+                            recruitmentsLazyListState = recruitmentsLazyListState,
+                            navigateToDetail = { recruitmentId ->
+                                backStack.add(RecruitmentDetailNavKey(recruitmentId))
+                            },
+                        )
+                        recruitmentDetailEntry(
+                            popBack = backStack::removeLastOrNull,
+                        )
+                        favoritesEntry(
+                            navigateToDetail = {
+                                backStack.add(FavoriteNavKey)
+                            },
+                        )
+                    }
                 )
             }
         }

@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
@@ -31,10 +31,11 @@ import com.yuta0124.wantedlyapp.core.ui.component.RecruitmentCard
 
 @Composable
 fun FavoriteScreen(
+    viewModel: FavoriteViewModel,
     navigateToDetail: (id: Int) -> Unit,
-    viewModel: FavoriteViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
+    val uiState by viewModel.uiState.collectAsState()
 
     FavoriteScreen(
         uiState = uiState,

@@ -1,28 +1,27 @@
 package com.yuta0124.wantedlyapp.feature.recruitmentdetail
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.toRoute
 import com.yuta0124.wantedlyapp.core.data.database.BookmarkCompanyTable
 import com.yuta0124.wantedlyapp.core.data.network.response.toRecruitmentDetail
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.ui.IErrorHandler
-import com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation.RecruitmentDetailRoute
+import com.yuta0124.wantedlyapp.core.ui.extensions.stateInWhileSubscribed
+import com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation.RecruitmentDetailNavKey
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class RecruitmentDetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+@HiltViewModel(assistedFactory = RecruitmentDetailViewModel.Factory::class)
+class RecruitmentDetailViewModel @AssistedInject constructor(
+    @Assisted private val navKey: RecruitmentDetailNavKey,
     private val repository: IWantedlyRepository,
     private val errorHandler: IErrorHandler,
 ) : ViewModel() {
@@ -38,15 +37,11 @@ class RecruitmentDetailViewModel @Inject constructor(
         uiState.copy(
             recruitmentDetail = uiState.recruitmentDetail.copy(canBookmark = canBookmark)
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiState(),
-    )
+    }.stateInWhileSubscribed(UiState())
 
     init {
-        val recruitmentId = savedStateHandle.toRoute<RecruitmentDetailRoute>().id
-        fetchRecruitmentDetail(recruitmentId)
+
+        fetchRecruitmentDetail(navKey.recruitmentId)
     }
 
     fun onAction(intent: Intent) {
@@ -101,5 +96,10 @@ class RecruitmentDetailViewModel @Inject constructor(
 
     private fun sendUiEvent(event: UiEvent) {
         _uiEvents.update { it + listOf(event) }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(navKey: RecruitmentDetailNavKey): RecruitmentDetailViewModel
     }
 }

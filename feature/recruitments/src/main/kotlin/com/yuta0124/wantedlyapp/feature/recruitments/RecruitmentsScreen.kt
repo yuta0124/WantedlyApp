@@ -37,7 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
@@ -49,12 +49,13 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RecruitmentsScreen(
+    viewModel: RecruitmentsViewModel,
     lazyListState: LazyListState,
     navigateToDetail: (id: Int) -> Unit,
-    viewModel: RecruitmentsViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
+    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
+    val uiState by viewModel.uiState.collectAsState()
+    val uiEvents by viewModel.uiEvents.collectAsState()
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 

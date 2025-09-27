@@ -3,7 +3,6 @@ package com.yuta0124.wantedlyapp.buildlogic.primitive
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -20,7 +19,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
                 compilerOptions {
                     jvmTarget.set(JvmTarget.JVM_17)
                     allWarningsAsErrors.set(properties["warningsAsErrors"] as? Boolean ?: false)
-                    freeCompilerArgs.add("-Xcontext-receivers")
+                    freeCompilerArgs.add("-Xcontext-parameters")
                 }
             }
 
