@@ -11,15 +11,13 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.scene.rememberSceneSetupNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.feature.favorite.navigation.FavoriteNavKey
 import com.yuta0124.wantedlyapp.feature.favorite.navigation.favoritesEntry
@@ -45,7 +43,7 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier) {
             val recruitmentsLazyListState = rememberLazyListState()
-            val backStack: SnapshotStateList<NavKey> = rememberNavBackStack(RecruitmentsNavKey)
+            val backStack = rememberNavBackStack(RecruitmentsNavKey)
 
             Scaffold(
                 bottomBar = {
