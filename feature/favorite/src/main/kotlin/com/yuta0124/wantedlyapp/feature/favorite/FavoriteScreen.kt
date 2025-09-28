@@ -30,7 +30,7 @@ import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.RecruitmentCard
 
 @Composable
-fun FavoriteScreen(
+internal fun FavoriteScreen(
     viewModel: FavoriteViewModel,
     navigateToDetail: (id: Int) -> Unit,
 ) {
@@ -46,7 +46,7 @@ fun FavoriteScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(
+private fun FavoriteScreen(
     uiState: UiState,
     onAction: (Intent) -> Unit,
     navigateToDetail: (Int) -> Unit,

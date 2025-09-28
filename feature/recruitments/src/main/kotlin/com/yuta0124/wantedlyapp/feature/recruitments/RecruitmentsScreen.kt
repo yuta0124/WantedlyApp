@@ -48,7 +48,7 @@ import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
 import kotlinx.coroutines.launch
 
 @Composable
-fun RecruitmentsScreen(
+internal fun RecruitmentsScreen(
     viewModel: RecruitmentsViewModel,
     lazyListState: LazyListState,
     navigateToDetail: (id: Int) -> Unit,
@@ -85,7 +85,7 @@ fun RecruitmentsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecruitmentsScreen(
+private fun RecruitmentsScreen(
     uiState: UiState,
     lazyListState: LazyListState,
     snackBarHostState: SnackbarHostState,

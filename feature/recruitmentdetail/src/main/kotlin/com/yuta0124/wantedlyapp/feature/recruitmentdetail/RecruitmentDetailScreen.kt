@@ -47,7 +47,7 @@ import com.yuta0124.wantedlyapp.feature.recruitmentdetail.components.DetailDescr
 import kotlinx.coroutines.launch
 
 @Composable
-fun RecruitmentDetailScreen(
+internal fun RecruitmentDetailScreen(
     viewModel: RecruitmentDetailViewModel,
     onBackClick: () -> Unit,
 ) {
@@ -82,7 +82,7 @@ fun RecruitmentDetailScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecruitmentDetailScreen(
+private fun RecruitmentDetailScreen(
     uiState: UiState,
     snackBarHostState: SnackbarHostState,
     onBackClick: () -> Unit,
