@@ -4,12 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yuta0124.wantedlyapp.core.data.repository.IWantedlyRepository
 import com.yuta0124.wantedlyapp.core.model.Recruitment
+import com.yuta0124.wantedlyapp.core.ui.extensions.stateInWhileSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,11 +37,7 @@ class FavoriteViewModel @Inject constructor(
             loading = loading,
             recruitments = recruitments
         )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiState(),
-    )
+    }.stateInWhileSubscribed(UiState())
 
     fun onAction(intent: Intent) {
         when (intent) {
