@@ -99,7 +99,7 @@ fun BottomNavigation(
 }
 
 sealed class BottomNavItems<T>(
-    @param:StringRes val titleRes: Int,
+    @StringRes val titleRes: Int,
     val icon: ImageVector,
     val route: T,
 ) {
