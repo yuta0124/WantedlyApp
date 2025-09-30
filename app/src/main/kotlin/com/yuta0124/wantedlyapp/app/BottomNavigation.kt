@@ -12,8 +12,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +27,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun BottomNavigation(
+    isVisible: Boolean,
     recruitmentsLazyListState: LazyListState,
     currentDestination: NavKey?,
     navigateTo: (NavKey) -> Unit,
@@ -40,19 +39,8 @@ fun BottomNavigation(
         BottomNavItems.Favorite,
     )
 
-    val bottomBarVisible by remember(currentDestination) {
-        mutableStateOf(
-            when (currentDestination) {
-                RecruitmentsNavKey,
-                FavoriteNavKey -> true
-
-                else -> false
-            }
-        )
-    }
-
     AnimatedVisibility(
-        visible = bottomBarVisible,
+        visible = isVisible,
         enter = fadeIn(),
         exit = fadeOut(),
     ) {

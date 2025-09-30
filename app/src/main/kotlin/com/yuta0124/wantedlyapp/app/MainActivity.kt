@@ -11,7 +11,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -44,18 +48,35 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
         Surface(modifier = modifier) {
             val recruitmentsLazyListState = rememberLazyListState()
             val backStack = rememberNavBackStack(RecruitmentsNavKey)
+            val currentDestination = backStack.lastOrNull()
+            val bottomBarVisible by remember(currentDestination) {
+                mutableStateOf(
+                    when (currentDestination) {
+                        RecruitmentsNavKey,
+                        FavoriteNavKey -> true
 
+                        else -> false
+                    }
+                )
+            }
             Scaffold(
                 bottomBar = {
                     BottomNavigation(
+                        isVisible = bottomBarVisible,
                         recruitmentsLazyListState = recruitmentsLazyListState,
-                        currentDestination = backStack.lastOrNull(),
+                        currentDestination = currentDestination,
                         navigateTo = backStack::add,
                     )
                 }
             ) { innerPadding ->
+                val padding = if (bottomBarVisible) {
+                    innerPadding.calculateBottomPadding()
+                } else {
+                    Dp.Hairline
+                }
+
                 NavDisplay(
-                    modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+                    modifier = Modifier.padding(bottom = padding),
                     backStack = backStack,
                     entryDecorators = listOf(
                         rememberSceneSetupNavEntryDecorator(),

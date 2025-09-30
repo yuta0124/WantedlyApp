@@ -4,11 +4,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -120,6 +125,7 @@ private fun RecruitmentDetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .consumeWindowInsets(innerPadding)
                 .verticalScroll(scrollState),
         ) {
             if (uiState.loading == UiState.Loading.INDICATOR) {
@@ -143,7 +149,6 @@ private fun RecruitmentDetailScreen(
                     contentDescription = null,
                 )
             }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -185,6 +190,10 @@ private fun RecruitmentDetailScreen(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.how_description_title),
                     description = uiState.recruitmentDetail.howDescription ?: noDataString,
+                )
+
+                Spacer(
+                    modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars)
                 )
             }
         }
