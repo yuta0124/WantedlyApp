@@ -11,15 +11,17 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.scene.rememberSceneSetupNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.feature.favorite.navigation.FavoriteNavKey
 import com.yuta0124.wantedlyapp.feature.favorite.navigation.favoritesEntry
@@ -45,19 +47,36 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
     WantedlyAppTheme {
         Surface(modifier = modifier) {
             val recruitmentsLazyListState = rememberLazyListState()
-            val backStack: SnapshotStateList<NavKey> = rememberNavBackStack(RecruitmentsNavKey)
+            val backStack = rememberNavBackStack(RecruitmentsNavKey)
+            val currentDestination = backStack.lastOrNull()
+            val bottomBarVisible by remember(currentDestination) {
+                mutableStateOf(
+                    when (currentDestination) {
+                        RecruitmentsNavKey,
+                        FavoriteNavKey -> true
 
+                        else -> false
+                    }
+                )
+            }
             Scaffold(
                 bottomBar = {
                     BottomNavigation(
+                        isVisible = bottomBarVisible,
                         recruitmentsLazyListState = recruitmentsLazyListState,
-                        currentDestination = backStack.lastOrNull(),
+                        currentDestination = currentDestination,
                         navigateTo = backStack::add,
                     )
                 }
             ) { innerPadding ->
+                val padding = if (bottomBarVisible) {
+                    innerPadding.calculateBottomPadding()
+                } else {
+                    Dp.Hairline
+                }
+
                 NavDisplay(
-                    modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+                    modifier = Modifier.padding(bottom = padding),
                     backStack = backStack,
                     entryDecorators = listOf(
                         rememberSceneSetupNavEntryDecorator(),

@@ -4,11 +4,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,8 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.icons.WantedlyIcons
@@ -47,13 +50,12 @@ import com.yuta0124.wantedlyapp.feature.recruitmentdetail.components.DetailDescr
 import kotlinx.coroutines.launch
 
 @Composable
-fun RecruitmentDetailScreen(
+internal fun RecruitmentDetailScreen(
     viewModel: RecruitmentDetailViewModel,
     onBackClick: () -> Unit,
 ) {
-    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
-    val uiState by viewModel.uiState.collectAsState()
-    val uiEvents by viewModel.uiEvents.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -82,7 +84,7 @@ fun RecruitmentDetailScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecruitmentDetailScreen(
+private fun RecruitmentDetailScreen(
     uiState: UiState,
     snackBarHostState: SnackbarHostState,
     onBackClick: () -> Unit,
@@ -123,6 +125,7 @@ fun RecruitmentDetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .consumeWindowInsets(innerPadding)
                 .verticalScroll(scrollState),
         ) {
             if (uiState.loading == UiState.Loading.INDICATOR) {
@@ -146,7 +149,6 @@ fun RecruitmentDetailScreen(
                     contentDescription = null,
                 )
             }
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -188,6 +190,10 @@ fun RecruitmentDetailScreen(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(R.string.how_description_title),
                     description = uiState.recruitmentDetail.howDescription ?: noDataString,
+                )
+
+                Spacer(
+                    modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars)
                 )
             }
         }

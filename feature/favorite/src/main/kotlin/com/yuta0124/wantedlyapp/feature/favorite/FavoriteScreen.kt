@@ -24,18 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
 import com.yuta0124.wantedlyapp.core.ui.component.RecruitmentCard
 
 @Composable
-fun FavoriteScreen(
+internal fun FavoriteScreen(
     viewModel: FavoriteViewModel,
     navigateToDetail: (id: Int) -> Unit,
 ) {
-    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     FavoriteScreen(
         uiState = uiState,
@@ -46,7 +46,7 @@ fun FavoriteScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(
+private fun FavoriteScreen(
     uiState: UiState,
     onAction: (Intent) -> Unit,
     navigateToDetail: (Int) -> Unit,

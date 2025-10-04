@@ -3,7 +3,6 @@ package com.yuta0124.wantedlyapp.feature.recruitmentdetail.navigation
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.entry
 import com.yuta0124.wantedlyapp.feature.recruitmentdetail.RecruitmentDetailScreen
 import com.yuta0124.wantedlyapp.feature.recruitmentdetail.RecruitmentDetailViewModel
 import kotlinx.serialization.Serializable

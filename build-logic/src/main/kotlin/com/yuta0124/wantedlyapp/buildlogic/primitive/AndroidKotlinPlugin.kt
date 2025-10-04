@@ -19,7 +19,10 @@ class AndroidKotlinPlugin : Plugin<Project> {
                 compilerOptions {
                     jvmTarget.set(JvmTarget.JVM_17)
                     allWarningsAsErrors.set(properties["warningsAsErrors"] as? Boolean ?: false)
-                    freeCompilerArgs.add("-Xcontext-parameters")
+                    freeCompilerArgs.addAll(
+                        "-Xcontext-parameters",
+                        "-Xannotation-default-target=param-property",
+                    )
                 }
             }
 
