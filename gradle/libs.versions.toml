@@ -1,7 +1,7 @@
 [versions]
-agp = "8.10.0"
-ksp = "2.2.10-2.0.2"
-kotlin = "2.2.10"
+agp = "8.13.0"
+ksp = "2.2.20-2.0.3"
+kotlin = "2.2.20"
 croutineTest = "1.10.2"
 kotlinxSerialization = "1.9.0"
 coreKtx = "1.16.0"
@@ -15,8 +15,7 @@ nav3Core = "1.0.0-alpha10"
 lifecycleViewmodelNav3 = "1.0.0-alpha04"
 kotlinxSerializationCore = "1.9.0"
 appcompat = "1.7.0"
-detekt = "1.23.7"
-twitterComposeRule = "0.0.26"
+detekt = "2.0.0-alpha.1"
 arrow = "2.1.2"
 roborazzi = "1.41.0"
 robolectric = "4.14.1"
@@ -27,7 +26,7 @@ hiltNavigationCompose = "1.2.0"
 coil = "3.2.0"
 coilNetworkOkhttp = "3.2.0"
 room = "2.7.2"
-kotest = "6.0.3"
+kotest = "6.0.4"
 mockk = "1.14.4"
 junitVintageEngine = "5.11.2"
 truth = "1.4.4"
@@ -60,9 +59,8 @@ androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runt
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
-detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
-twitter-compose-rules = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
+detekt-gradle-plugin = { module = "dev.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+detekt-ktlint-wrapper = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
@@ -120,6 +118,5 @@ plugins = [
     "kotlin-gradle-plugin",
     "kotlin-serialization-plugin",
     "detekt-gradle-plugin",
-    "twitter-compose-rules",
     "hilt-gradle-plugin",
 ]

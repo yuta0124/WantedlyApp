@@ -3,8 +3,9 @@ package com.yuta0124.wantedlyapp.buildlogic.primitive
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import io.gitlab.arturbosch.detekt.extensions.DetektExtension
-import io.gitlab.arturbosch.detekt.report.ReportMergeTask
+import dev.detekt.gradle.Detekt
+import dev.detekt.gradle.extensions.DetektExtension
+import dev.detekt.gradle.report.ReportMergeTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
@@ -51,17 +52,17 @@ fun Project.setupAndroid() {
 fun Project.setupDetekt(extension: DetektExtension) {
     extension.apply {
         // parallel processing
-        parallel = true
+        parallel.set(true)
         // detekt configuration file
         config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
         // baseline configuration file
-        baseline = file("${project.rootDir}/config/detekt/baseline.xml")
+        baseline.set(file("${project.rootDir}/config/detekt/baseline.xml"))
         // apply your own configuration file on top of the default settings
-        buildUponDefaultConfig = true
+        buildUponDefaultConfig.set(true)
         // do not let them fail when there is a rule violation
-        ignoreFailures = false
+        ignoreFailures.set(false)
         // attempt to automatically correct rule violations
-        autoCorrect = true
+        autoCorrect.set(true)
     }
 
     /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
@@ -73,8 +74,8 @@ fun Project.setupDetekt(extension: DetektExtension) {
         rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
     }
 
-    plugins.withType<io.gitlab.arturbosch.detekt.DetektPlugin> {
-        tasks.withType<io.gitlab.arturbosch.detekt.Detekt> detekt@{
+    plugins.withType<DetektPlugin> {
+        tasks.withType<Detekt> detekt@{
             finalizedBy(reportMerge)
 
             source = project.files("./").asFileTree
@@ -86,7 +87,7 @@ fun Project.setupDetekt(extension: DetektExtension) {
 
 
             reportMerge.configure {
-                input.from(this@detekt.xmlReportFile) // or .sarifReportFile
+                input.from(tasks.withType<Detekt>().map { it.reports.checkstyle.outputLocation })
             }
         }
     }
