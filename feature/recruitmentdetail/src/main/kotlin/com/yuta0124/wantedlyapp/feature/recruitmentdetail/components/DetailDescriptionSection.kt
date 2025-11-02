@@ -16,11 +16,7 @@ import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.feature.recruitmentdetail.RecruitmentDetailDefaults
 
 @Composable
-fun DetailDescriptionSection(
-    title: String,
-    description: String,
-    modifier: Modifier = Modifier,
-) {
+fun DetailDescriptionSection(title: String, description: String, modifier: Modifier = Modifier) {
     val textBackgroundColor = MaterialTheme.colorScheme.primary
     val titleTextStyle = MaterialTheme.typography.titleLarge
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -37,7 +33,8 @@ fun DetailDescriptionSection(
                             size.width,
                             size.height / RecruitmentDetailDefaults.DescriptionTitleBehindEnddiv,
                         ),
-                        strokeWidth = titleTextStyle.fontSize.value.sp.toPx(),
+                        strokeWidth = titleTextStyle.fontSize.value.sp
+                            .toPx(),
                     )
                 },
             text = title,

@@ -3,7 +3,6 @@ import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 plugins {
     alias(libs.plugins.wantedlyapp.android.library.plugin)
     alias(libs.plugins.wantedlyapp.android.kotlin.plugin)
-    alias(libs.plugins.wantedlyapp.detekt)
     alias(libs.plugins.roborazzi.plugin)
 }
 

@@ -8,10 +8,7 @@ class TestNetworkService(
     private val fetchRecruitments: (() -> RecruitmentsResponse)? = null,
     private val fetchRecruitmentDetail: (() -> RecruitmentDetailResponse)? = null,
 ) : INetworkService {
-    override suspend fun fetchRecruitments(
-        keywork: String?,
-        page: Int
-    ): RecruitmentsResponse =
+    override suspend fun fetchRecruitments(keywork: String?, page: Int): RecruitmentsResponse =
         requireNotNull(fetchRecruitments) { "fetchRecruitments is null" }.invoke()
 
     override suspend fun fetchRecruitmentDetail(id: Int): RecruitmentDetailResponse =

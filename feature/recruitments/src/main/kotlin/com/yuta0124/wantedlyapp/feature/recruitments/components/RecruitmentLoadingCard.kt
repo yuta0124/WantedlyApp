@@ -21,15 +21,13 @@ import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 import com.yuta0124.wantedlyapp.feature.recruitments.RecruitmentsDefaults
 
 @Composable
-fun RecruitmentLoadingCard(
-    modifier: Modifier = Modifier,
-) {
+fun RecruitmentLoadingCard(modifier: Modifier = Modifier) {
     val loadingText = stringResource(R.string.no_data)
 
     Card(modifier = modifier) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CompanyInfoHeader(
                 companyLogoUrl = loadingText,

@@ -19,13 +19,14 @@ class BookmarkCompanyDatabaseMigrationTest {
 
     @Test
     fun version1_To_version2() {
-        helper.createDatabase(
-            name = testDb,
-            version = 1,
-        ).apply {
-            execSQL("INSERT INTO bookmark_company_table (id) VALUES (1)")
-            close()
-        }
+        helper
+            .createDatabase(
+                name = testDb,
+                version = 1,
+            ).apply {
+                execSQL("INSERT INTO bookmark_company_table (id) VALUES (1)")
+                close()
+            }
 
         val db = helper.runMigrationsAndValidate(
             name = testDb,

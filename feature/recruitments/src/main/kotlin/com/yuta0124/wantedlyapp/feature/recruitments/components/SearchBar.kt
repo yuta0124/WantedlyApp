@@ -45,7 +45,7 @@ fun SearchBar(
             leadingIcon = {
                 Icon(
                     imageVector = WantedlyIcons.Search,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             },
             placeholder = {

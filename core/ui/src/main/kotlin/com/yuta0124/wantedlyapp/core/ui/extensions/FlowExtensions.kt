@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 
+private const val StopTimeoutMillis: Long = 5_000
+
 context(viewModel: ViewModel)
-fun <T> Flow<T>.stateInWhileSubscribed(initialValue: T): StateFlow<T> {
-    return stateIn(
-        scope = viewModel.viewModelScope,
-        started = SharingStarted.WhileSubscribed(5_000),
-        initialValue = initialValue,
-    )
-}
+fun <T> Flow<T>.stateInWhileSubscribed(initialValue: T): StateFlow<T> = stateIn(
+    scope = viewModel.viewModelScope,
+    started = SharingStarted.WhileSubscribed(StopTimeoutMillis),
+    initialValue = initialValue,
+)

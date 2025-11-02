@@ -3,8 +3,10 @@ package com.yuta0124.wantedlyapp.buildlogic.primitive
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import io.gitlab.arturbosch.detekt.extensions.DetektExtension
-import io.gitlab.arturbosch.detekt.report.ReportMergeTask
+import dev.detekt.gradle.Detekt
+import dev.detekt.gradle.extensions.DetektExtension
+import dev.detekt.gradle.plugin.DetektPlugin
+import dev.detekt.gradle.report.ReportMergeTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskProvider
@@ -48,46 +50,38 @@ fun Project.setupAndroid() {
     }
 }
 
-fun Project.setupDetekt(extension: DetektExtension) {
-    extension.apply {
-        // parallel processing
-        parallel = true
-        // detekt configuration file
-        config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
-        // baseline configuration file
-        baseline = file("${project.rootDir}/config/detekt/baseline.xml")
-        // apply your own configuration file on top of the default settings
-        buildUponDefaultConfig = true
-        // do not let them fail when there is a rule violation
-        ignoreFailures = false
-        // attempt to automatically correct rule violations
-        autoCorrect = true
-    }
+fun Project.setupDetekt() {
+    plugins.withType<DetektPlugin> {
+        extensions.configure<DetektExtension> {
+            parallel.set(true)
+            // detekt configuration file
+            config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
+            // baseline configuration file
+            baseline.set(file("${project.rootDir}/config/detekt/baseline.xml"))
+            // apply your own configuration file on top of the default settings
+            buildUponDefaultConfig.set(true)
+            // do not let them fail when there is a rule violation
+            ignoreFailures.set(false)
+            // attempt to automatically correct rule violations
+            autoCorrect.set(true)
 
-    /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
-    val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
-        rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
-            output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
         }
-    } else {
-        rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
+
+        /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
     }
-
-    plugins.withType<io.gitlab.arturbosch.detekt.DetektPlugin> {
-        tasks.withType<io.gitlab.arturbosch.detekt.Detekt> detekt@{
-            finalizedBy(reportMerge)
-
-            source = project.files("./").asFileTree
-
-            include("**/*.kt")
-            include("**/*.kts")
-            exclude("**/resources/**")
-            exclude("**/build/**")
-
-
-            reportMerge.configure {
-                input.from(this@detekt.xmlReportFile) // or .sarifReportFile
+    tasks.withType<Detekt>().configureEach {
+        val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
+            rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
+                output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
             }
+        } else {
+            rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
+        }
+
+        finalizedBy(reportMerge)
+
+        reportMerge.configure {
+            input.from(reports.checkstyle.outputLocation)
         }
     }
 }

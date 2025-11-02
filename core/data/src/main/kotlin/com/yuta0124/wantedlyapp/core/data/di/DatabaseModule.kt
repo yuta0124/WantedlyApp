@@ -15,11 +15,10 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideBookmarkCompanyDatabase(@ApplicationContext context: Context): BookmarkCompanyDatabase {
-        return Room.databaseBuilder(
+    fun provideBookmarkCompanyDatabase(@ApplicationContext context: Context): BookmarkCompanyDatabase = Room
+        .databaseBuilder(
             context = context,
             klass = BookmarkCompanyDatabase::class.java,
             name = "bookmark_company_database",
         ).build()
-    }
 }

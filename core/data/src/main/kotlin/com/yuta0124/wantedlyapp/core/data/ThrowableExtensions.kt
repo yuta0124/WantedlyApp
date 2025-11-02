@@ -18,10 +18,12 @@ fun Throwable.toAppError(): AppError = when (this) {
 
     is TimeoutCancellationException,
     is HttpRequestTimeoutException,
-    is SocketTimeoutException -> AppError.TimeoutException
+    is SocketTimeoutException,
+    -> AppError.TimeoutException
 
     is ChannelReadException,
-    is IOException -> AppError.NetworkException
+    is IOException,
+    -> AppError.NetworkException
 
     else -> AppError.UnexpectedException
 }

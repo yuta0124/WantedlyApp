@@ -19,7 +19,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import javax.inject.Singleton
 
-private const val TIMEOUT_MILLISECONDS = 30_000
+private const val TimeOutMilliSeconds = 30_000
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -28,8 +28,8 @@ object NetworkModule {
     @Provides
     fun provideKtor(): HttpClient = HttpClient(Android) {
         engine {
-            connectTimeout = TIMEOUT_MILLISECONDS
-            socketTimeout = TIMEOUT_MILLISECONDS
+            connectTimeout = TimeOutMilliSeconds
+            socketTimeout = TimeOutMilliSeconds
         }
 
         install(ContentNegotiation) {
@@ -38,7 +38,7 @@ object NetworkModule {
                     ignoreUnknownKeys = true
                     isLenient = true
                     prettyPrint = true
-                }
+                },
             )
         }
 

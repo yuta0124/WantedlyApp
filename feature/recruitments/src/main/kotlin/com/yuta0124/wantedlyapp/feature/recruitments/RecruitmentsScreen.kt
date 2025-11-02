@@ -36,8 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.model.Recruitment
@@ -48,14 +47,13 @@ import com.yuta0124.wantedlyapp.feature.recruitments.components.SearchBar
 import kotlinx.coroutines.launch
 
 @Composable
-fun RecruitmentsScreen(
+internal fun RecruitmentsScreen(
     viewModel: RecruitmentsViewModel,
     lazyListState: LazyListState,
     navigateToDetail: (id: Int) -> Unit,
 ) {
-    // TODO: ライフサイクルに沿ってサブスクライブされるように修正
-    val uiState by viewModel.uiState.collectAsState()
-    val uiEvents by viewModel.uiEvents.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -85,7 +83,7 @@ fun RecruitmentsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecruitmentsScreen(
+private fun RecruitmentsScreen(
     uiState: UiState,
     lazyListState: LazyListState,
     snackBarHostState: SnackbarHostState,
@@ -110,7 +108,7 @@ fun RecruitmentsScreen(
     }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        canScroll = { canScroll.value }
+        canScroll = { canScroll.value },
     )
 
     LaunchedEffect(Unit) {
@@ -137,7 +135,7 @@ fun RecruitmentsScreen(
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surface),
             )
-        }
+        },
     ) { innerPadding ->
         if (uiState.loading == UiState.Loading.INDICATOR) {
             CircularIndicator(
@@ -159,7 +157,7 @@ fun RecruitmentsScreen(
             stickyHeader {
                 SearchBar(
                     modifier = Modifier.fillMaxWidth(),
-                    keyword = uiState.keyword ?: "",
+                    keyword = uiState.keyword.orEmpty(),
                     paddingValues = PaddingValues(vertical = 8.dp),
                     onSearch = {
                         scope.launch {
@@ -167,7 +165,9 @@ fun RecruitmentsScreen(
                         }
                         onAction(Intent.Search)
                     },
-                    onValueChanged = { onAction(Intent.KeywordChange(it)) },
+                    onValueChanged = { value ->
+                        onAction(Intent.KeywordChange(value))
+                    },
                 )
             }
 
@@ -203,7 +203,7 @@ fun RecruitmentsScreen(
                                     Intent.BookmarkClick(
                                         id = id,
                                         canBookmark = canBookmark,
-                                    )
+                                    ),
                                 )
                             },
                         )
@@ -227,7 +227,7 @@ fun RecruitmentsScreenPreview() {
         RecruitmentsScreen(
             uiState = UiState(
                 loading = UiState.Loading.NONE,
-                recruitments = Recruitment.fake()
+                recruitments = Recruitment.fake(),
             ),
             lazyListState = rememberLazyListState(),
             snackBarHostState = SnackbarHostState(),

@@ -20,24 +20,21 @@ class WantedlyRepository(
     override val bookmarkCompanies: Flow<List<BookmarkCompanyTable>> =
         bookmarkCompanyDao.getBookmarkCompanies()
 
-    override suspend fun fetchRecruitments(
-        keyword: String?,
-        page: Int
-    ): Either<AppError, RecruitmentsResponse> {
-        return withContext(ioDispatcher) {
-            Either.catch {
-                networkService.fetchRecruitments(keyword, page)
-            }.mapLeft { it.toAppError() }
+    override suspend fun fetchRecruitments(keyword: String?, page: Int): Either<AppError, RecruitmentsResponse> =
+        withContext(ioDispatcher) {
+            Either
+                .catch {
+                    networkService.fetchRecruitments(keyword, page)
+                }.mapLeft { it.toAppError() }
         }
-    }
 
-    override suspend fun fetchRecruitmentDetail(id: Int): Either<AppError, RecruitmentDetailResponse> {
-        return withContext(ioDispatcher) {
-            Either.catch {
-                networkService.fetchRecruitmentDetail(id)
-            }.mapLeft { it.toAppError() }
+    override suspend fun fetchRecruitmentDetail(id: Int): Either<AppError, RecruitmentDetailResponse> =
+        withContext(ioDispatcher) {
+            Either
+                .catch {
+                    networkService.fetchRecruitmentDetail(id)
+                }.mapLeft { it.toAppError() }
         }
-    }
 
     override suspend fun insertBookmark(bookmarkCompany: BookmarkCompanyTable) {
         withContext(ioDispatcher) {

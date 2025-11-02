@@ -23,7 +23,7 @@ import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
 import com.yuta0124.wantedlyapp.core.ui.shimmerBrush
 
-private const val RECRUITMENT_CARD_RATIO = 16f / 9f
+private const val RecruitmentCardRatio = 16f / 9f
 
 @Composable
 fun RecruitmentCard(
@@ -41,7 +41,7 @@ fun RecruitmentCard(
     Card(modifier = modifier, onClick = onClick) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             CompanyInfoHeader(
                 companyLogoUrl = companyLogoImage,
@@ -53,7 +53,7 @@ fun RecruitmentCard(
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(RECRUITMENT_CARD_RATIO)
+                    .aspectRatio(RecruitmentCardRatio)
                     .background(shimmerBrush(showShimmer = loadingThumbnail)),
                 model = thumbnailUrl,
                 error = painterResource(R.drawable.no_image),

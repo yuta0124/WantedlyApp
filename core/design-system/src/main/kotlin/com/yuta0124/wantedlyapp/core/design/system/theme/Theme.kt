@@ -13,12 +13,10 @@ private val ColorScheme = lightColorScheme(
 )
 
 @Composable
-fun WantedlyAppTheme(
-    content: @Composable () -> Unit
-) {
+fun WantedlyAppTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = ColorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

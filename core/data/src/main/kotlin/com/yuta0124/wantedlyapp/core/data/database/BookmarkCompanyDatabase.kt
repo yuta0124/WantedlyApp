@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
     exportSchema = true,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
-    ]
+    ],
 )
 abstract class BookmarkCompanyDatabase : RoomDatabase() {
     abstract fun bookmarkCompanyDao(): BookmarkCompanyDao

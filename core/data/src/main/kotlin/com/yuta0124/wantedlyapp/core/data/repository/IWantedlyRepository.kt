@@ -10,13 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface IWantedlyRepository {
     val bookmarkCompanies: Flow<List<BookmarkCompanyTable>>
 
-    suspend fun fetchRecruitments(
-        keyword: String? = null,
-        page: Int = 0,
-    ): Either<AppError, RecruitmentsResponse>
+    suspend fun fetchRecruitments(keyword: String? = null, page: Int = 0): Either<AppError, RecruitmentsResponse>
 
     suspend fun fetchRecruitmentDetail(id: Int): Either<AppError, RecruitmentDetailResponse>
 
     suspend fun insertBookmark(bookmarkCompany: BookmarkCompanyTable)
+
     suspend fun deleteBookmarkById(id: Int)
 }

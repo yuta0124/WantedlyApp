@@ -6,7 +6,10 @@ sealed interface AppError {
 
     /** status code: 500~599 */
     data object ServerException : AppError
+
     data object NetworkException : AppError
+
     data object TimeoutException : AppError
+
     data object UnexpectedException : AppError
 }
