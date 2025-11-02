@@ -13,7 +13,6 @@ class DetektPlugin : Plugin<Project> {
                 apply("dev.detekt")
             }
 
-//            setupDetekt(extensions.getByType<DetektExtension>())
             setupDetekt()
 
             dependencies {
