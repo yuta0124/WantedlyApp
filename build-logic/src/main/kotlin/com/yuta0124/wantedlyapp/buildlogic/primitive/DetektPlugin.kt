@@ -13,7 +13,8 @@ class DetektPlugin : Plugin<Project> {
                 apply("dev.detekt")
             }
 
-            setupDetekt(extensions.getByType<DetektExtension>())
+//            setupDetekt(extensions.getByType<DetektExtension>())
+            setupDetekt()
 
             dependencies {
                 detektPlugins(libs.library("detekt-ktlint-wrapper"))

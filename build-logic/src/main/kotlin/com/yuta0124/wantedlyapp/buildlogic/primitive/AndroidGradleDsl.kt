@@ -5,6 +5,7 @@ import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.extensions.DetektExtension
+import dev.detekt.gradle.plugin.DetektPlugin
 import dev.detekt.gradle.report.ReportMergeTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
@@ -49,46 +50,38 @@ fun Project.setupAndroid() {
     }
 }
 
-fun Project.setupDetekt(extension: DetektExtension) {
-    extension.apply {
-        // parallel processing
-        parallel.set(true)
-        // detekt configuration file
-        config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
-        // baseline configuration file
-        baseline.set(file("${project.rootDir}/config/detekt/baseline.xml"))
-        // apply your own configuration file on top of the default settings
-        buildUponDefaultConfig.set(true)
-        // do not let them fail when there is a rule violation
-        ignoreFailures.set(false)
-        // attempt to automatically correct rule violations
-        autoCorrect.set(true)
-    }
-
-    /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
-    val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
-        rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
-            output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
-        }
-    } else {
-        rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
-    }
-
+fun Project.setupDetekt() {
     plugins.withType<DetektPlugin> {
-        tasks.withType<Detekt> detekt@{
-            finalizedBy(reportMerge)
+        extensions.configure<DetektExtension> {
+            parallel.set(true)
+            // detekt configuration file
+            config.setFrom("${project.rootDir}/config/detekt/detekt.yml")
+            // baseline configuration file
+            baseline.set(file("${project.rootDir}/config/detekt/baseline.xml"))
+            // apply your own configuration file on top of the default settings
+            buildUponDefaultConfig.set(true)
+            // do not let them fail when there is a rule violation
+            ignoreFailures.set(false)
+            // attempt to automatically correct rule violations
+            autoCorrect.set(true)
 
-            source = project.files("./").asFileTree
+        }
 
-            include("**/*.kt")
-            include("**/*.kts")
-            exclude("**/resources/**")
-            exclude("**/build/**")
-
-
-            reportMerge.configure {
-                input.from(tasks.withType<Detekt>().map { it.reports.checkstyle.outputLocation })
+        /** https://detekt.dev/docs/introduction/reporting#kotlin-dsl-1 */
+    }
+    tasks.withType<Detekt>().configureEach {
+        val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
+            rootProject.tasks.register("reportMerge", ReportMergeTask::class) {
+                output.set(rootProject.layout.buildDirectory.file("reports/detekt/merge.xml"))
             }
+        } else {
+            rootProject.tasks.named("reportMerge") as TaskProvider<ReportMergeTask>
+        }
+
+        finalizedBy(reportMerge)
+
+        reportMerge.configure {
+            input.from(reports.checkstyle.outputLocation)
         }
     }
 }
