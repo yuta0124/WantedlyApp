@@ -10,9 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RecruitmentDetailNavKey(val recruitmentId: Int) : NavKey
 
-fun EntryProviderBuilder<NavKey>.recruitmentDetailEntry(
-    popBack: () -> Unit,
-) {
+fun EntryProviderBuilder<NavKey>.recruitmentDetailEntry(popBack: () -> Unit) {
     entry<RecruitmentDetailNavKey> { args ->
         val viewModel =
             hiltViewModel<RecruitmentDetailViewModel, RecruitmentDetailViewModel.Factory> { factory ->

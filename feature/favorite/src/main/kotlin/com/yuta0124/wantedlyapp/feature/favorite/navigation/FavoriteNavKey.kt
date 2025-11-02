@@ -10,9 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object FavoriteNavKey : NavKey
 
-fun EntryProviderBuilder<NavKey>.favoritesEntry(
-    navigateToDetail: (Int) -> Unit,
-) {
+fun EntryProviderBuilder<NavKey>.favoritesEntry(navigateToDetail: (Int) -> Unit) {
     entry(FavoriteNavKey) {
         val viewModel = hiltViewModel<FavoriteViewModel>()
         FavoriteScreen(

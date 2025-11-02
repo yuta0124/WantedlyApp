@@ -6,14 +6,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class TestBookmarkCompanyDao : BookmarkCompanyDao {
-    override fun getBookmarkCompanies(): Flow<List<BookmarkCompanyTable>> =
-        flow { emit(listOf()) }
+    override fun getBookmarkCompanies(): Flow<List<BookmarkCompanyTable>> = flow { emit(listOf()) }
 
     override suspend fun insertCompany(target: BookmarkCompanyTable) {
-        /* noop */
+        // noop
     }
 
     override suspend fun deleteBookmarkById(id: Int) {
-        /* noop */
+        // noop
     }
 }

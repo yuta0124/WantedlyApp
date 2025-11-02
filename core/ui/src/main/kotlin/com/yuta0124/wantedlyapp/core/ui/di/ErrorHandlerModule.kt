@@ -10,8 +10,8 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
 @InstallIn(ViewModelComponent::class)
+@Suppress("AbstractClassCanBeInterface")
 abstract class ErrorHandlerModule {
-
     @Binds
     @ViewModelScoped
     abstract fun bindErrorHandler(errorHandler: ErrorHandler): IErrorHandler

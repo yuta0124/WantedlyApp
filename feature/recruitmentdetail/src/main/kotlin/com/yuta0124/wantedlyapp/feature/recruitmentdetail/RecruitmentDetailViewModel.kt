@@ -35,7 +35,7 @@ class RecruitmentDetailViewModel @AssistedInject constructor(
     ) { uiState, bookmarkCompanies ->
         val canBookmark = bookmarkCompanies.any { it.id == uiState.recruitmentDetail.id }
         uiState.copy(
-            recruitmentDetail = uiState.recruitmentDetail.copy(canBookmark = canBookmark)
+            recruitmentDetail = uiState.recruitmentDetail.copy(canBookmark = canBookmark),
         )
     }.stateInWhileSubscribed(UiState())
 
@@ -69,7 +69,7 @@ class RecruitmentDetailViewModel @AssistedInject constructor(
                             recruitmentDetail = response.toRecruitmentDetail(),
                         )
                     }
-                }
+                },
             )
         }
     }

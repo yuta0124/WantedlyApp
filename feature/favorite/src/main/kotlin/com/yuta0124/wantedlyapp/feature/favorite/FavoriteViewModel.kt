@@ -13,10 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(
-    private val repository: IWantedlyRepository,
-) : ViewModel() {
-
+class FavoriteViewModel @Inject constructor(private val repository: IWantedlyRepository) : ViewModel() {
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = combine(
         _uiState,
@@ -29,13 +26,13 @@ class FavoriteViewModel @Inject constructor(
                 companyName = bookmark.companyName,
                 canBookMark = bookmark.canBookMark,
                 companyLogoImage = bookmark.companyLogoImage,
-                thumbnailUrl = bookmark.thumbnailUrl
+                thumbnailUrl = bookmark.thumbnailUrl,
             )
         }
         val loading = if (recruitments.isEmpty()) UiState.Loading.EMPTY else UiState.Loading.NONE
         uiState.copy(
             loading = loading,
-            recruitments = recruitments
+            recruitments = recruitments,
         )
     }.stateInWhileSubscribed(UiState())
 

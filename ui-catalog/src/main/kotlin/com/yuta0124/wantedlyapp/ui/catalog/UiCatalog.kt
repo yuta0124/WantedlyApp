@@ -67,14 +67,10 @@ fun UiCatalog(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun CatalogSection(
-    sectionTitle: String,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
-) {
+private fun CatalogSection(sectionTitle: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(sectionTitle, style = MaterialTheme.typography.titleMedium)
         content()

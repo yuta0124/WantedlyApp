@@ -50,10 +50,7 @@ import com.yuta0124.wantedlyapp.feature.recruitmentdetail.components.DetailDescr
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun RecruitmentDetailScreen(
-    viewModel: RecruitmentDetailViewModel,
-    onBackClick: () -> Unit,
-) {
+internal fun RecruitmentDetailScreen(viewModel: RecruitmentDetailViewModel, onBackClick: () -> Unit) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val uiEvents by viewModel.uiEvents.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -120,7 +117,7 @@ private fun RecruitmentDetailScreen(
                     containerColor = backgroundColor,
                 ),
             )
-        }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -165,7 +162,7 @@ private fun RecruitmentDetailScreen(
                         { onAction(Intent.BookmarkClick(it)) }
                     } else {
                         null
-                    }
+                    },
                 )
 
                 Text(
@@ -193,7 +190,7 @@ private fun RecruitmentDetailScreen(
                 )
 
                 Spacer(
-                    modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars)
+                    modifier = Modifier.windowInsetsBottomHeight(WindowInsets.systemBars),
                 )
             }
         }

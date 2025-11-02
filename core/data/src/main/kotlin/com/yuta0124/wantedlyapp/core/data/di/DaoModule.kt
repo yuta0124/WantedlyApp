@@ -13,6 +13,5 @@ import javax.inject.Singleton
 object DaoModule {
     @Provides
     @Singleton
-    fun provideBookmarkCompanyDao(database: BookmarkCompanyDatabase): BookmarkCompanyDao =
-        database.bookmarkCompanyDao()
+    fun provideBookmarkCompanyDao(database: BookmarkCompanyDatabase): BookmarkCompanyDao = database.bookmarkCompanyDao()
 }

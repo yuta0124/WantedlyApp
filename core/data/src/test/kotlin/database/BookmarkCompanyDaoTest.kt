@@ -24,9 +24,11 @@ class BookmarkCompanyDaoTest {
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        database = Room.inMemoryDatabaseBuilder(
-            context, BookmarkCompanyDatabase::class.java
-        ).build()
+        database = Room
+            .inMemoryDatabaseBuilder(
+                context,
+                BookmarkCompanyDatabase::class.java,
+            ).build()
         dao = database.bookmarkCompanyDao()
     }
 

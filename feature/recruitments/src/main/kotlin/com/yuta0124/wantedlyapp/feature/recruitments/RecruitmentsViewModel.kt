@@ -36,7 +36,7 @@ class RecruitmentsViewModel @Inject constructor(
             recruitments = uiState.recruitments.map { recruitment ->
                 val canBookmark = bookmarkCompanies.any { it.id == recruitment.id }
                 recruitment.copy(canBookMark = canBookmark)
-            }
+            },
         )
     }.stateInWhileSubscribed(UiState())
 
@@ -85,43 +85,40 @@ class RecruitmentsViewModel @Inject constructor(
         _uiEvents.update { e -> e.filterNot { it == target } }
     }
 
-    private fun fetchRecruitments(
-        page: Int,
-        keyword: String?,
-        isInitialize: Boolean = false,
-    ) {
+    private fun fetchRecruitments(page: Int, keyword: String?, isInitialize: Boolean = false) {
         viewModelScope.launch {
-            repository.fetchRecruitments(
-                keyword = keyword,
-                page = page,
-            ).fold(
-                ifLeft = { error ->
-                    if (isInitialize) {
-                        _uiState.update { it.copy(loading = UiState.Loading.ERROR) }
-                    } else {
-                        _uiState.update { it.copy(loading = UiState.Loading.NONE) }
-                    }
+            repository
+                .fetchRecruitments(
+                    keyword = keyword,
+                    page = page,
+                ).fold(
+                    ifLeft = { error ->
+                        if (isInitialize) {
+                            _uiState.update { it.copy(loading = UiState.Loading.ERROR) }
+                        } else {
+                            _uiState.update { it.copy(loading = UiState.Loading.NONE) }
+                        }
 
-                    val uiEvent = UiEvent.ShowErrorMessage(errorHandler.onError(error))
-                    sendUiEvent(uiEvent)
-                },
-                ifRight = { response ->
-                    if (response.data.isEmpty()) _uiState.update { it.copy(isPageLimit = true) }
-                    val newRecruitments = if (uiState.value.loading == UiState.Loading.ADDITIONAL) {
-                        uiState.value.recruitments + response.toRecruitmentList()
-                    } else {
-                        response.toRecruitmentList()
-                    }
+                        val uiEvent = UiEvent.ShowErrorMessage(errorHandler.onError(error))
+                        sendUiEvent(uiEvent)
+                    },
+                    ifRight = { response ->
+                        if (response.data.isEmpty()) _uiState.update { it.copy(isPageLimit = true) }
+                        val newRecruitments = if (uiState.value.loading == UiState.Loading.ADDITIONAL) {
+                            uiState.value.recruitments + response.toRecruitmentList()
+                        } else {
+                            response.toRecruitmentList()
+                        }
 
-                    _uiState.update {
-                        it.copy(
-                            recruitments = newRecruitments,
-                            loading = UiState.Loading.NONE,
-                        )
-                    }
-                    allPageCount += response.data.size
-                }
-            )
+                        _uiState.update {
+                            it.copy(
+                                recruitments = newRecruitments,
+                                loading = UiState.Loading.NONE,
+                            )
+                        }
+                        allPageCount += response.data.size
+                    },
+                )
         }
     }
 
@@ -136,7 +133,7 @@ class RecruitmentsViewModel @Inject constructor(
                         companyName = it.companyName,
                         canBookMark = it.canBookMark,
                         companyLogoImage = it.companyLogoImage,
-                        thumbnailUrl = it.thumbnailUrl
+                        thumbnailUrl = it.thumbnailUrl,
                     )
                     repository.insertBookmark(bookmarkCompany)
                 }

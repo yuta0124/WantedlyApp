@@ -9,16 +9,14 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.url
 
 class NetworkService(private val httpClient: HttpClient) : INetworkService {
-    override suspend fun fetchRecruitments(
-        keywork: String?,
-        page: Int,
-    ): RecruitmentsResponse = httpClient.get("projects") {
-        parameter("q", keywork)
-        parameter("page", page)
-    }.body()
+    override suspend fun fetchRecruitments(keywork: String?, page: Int): RecruitmentsResponse = httpClient
+        .get("projects") {
+            parameter("q", keywork)
+            parameter("page", page)
+        }.body()
 
-    override suspend fun fetchRecruitmentDetail(id: Int): RecruitmentDetailResponse =
-        httpClient.get("projects/") {
+    override suspend fun fetchRecruitmentDetail(id: Int): RecruitmentDetailResponse = httpClient
+        .get("projects/") {
             url(id.toString())
         }.body()
 }

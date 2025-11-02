@@ -53,10 +53,11 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
                 mutableStateOf(
                     when (currentDestination) {
                         RecruitmentsNavKey,
-                        FavoriteNavKey -> true
+                        FavoriteNavKey,
+                        -> true
 
                         else -> false
-                    }
+                    },
                 )
             }
             Scaffold(
@@ -67,7 +68,7 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
                         currentDestination = currentDestination,
                         navigateTo = backStack::add,
                     )
-                }
+                },
             ) { innerPadding ->
                 val padding = if (bottomBarVisible) {
                     innerPadding.calculateBottomPadding()
@@ -98,7 +99,7 @@ fun WantedlyApp(modifier: Modifier = Modifier) {
                                 backStack.add(FavoriteNavKey)
                             },
                         )
-                    }
+                    },
                 )
             }
         }

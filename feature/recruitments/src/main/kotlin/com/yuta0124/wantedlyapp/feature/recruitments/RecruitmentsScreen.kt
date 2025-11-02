@@ -36,8 +36,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.yuta0124.wantedlyapp.core.design.system.R
 import com.yuta0124.wantedlyapp.core.design.system.theme.WantedlyAppTheme
@@ -110,7 +108,7 @@ private fun RecruitmentsScreen(
     }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
-        canScroll = { canScroll.value }
+        canScroll = { canScroll.value },
     )
 
     LaunchedEffect(Unit) {
@@ -137,7 +135,7 @@ private fun RecruitmentsScreen(
                 scrollBehavior = scrollBehavior,
                 colors = TopAppBarDefaults.topAppBarColors(scrolledContainerColor = MaterialTheme.colorScheme.surface),
             )
-        }
+        },
     ) { innerPadding ->
         if (uiState.loading == UiState.Loading.INDICATOR) {
             CircularIndicator(
@@ -159,7 +157,7 @@ private fun RecruitmentsScreen(
             stickyHeader {
                 SearchBar(
                     modifier = Modifier.fillMaxWidth(),
-                    keyword = uiState.keyword ?: "",
+                    keyword = uiState.keyword.orEmpty(),
                     paddingValues = PaddingValues(vertical = 8.dp),
                     onSearch = {
                         scope.launch {
@@ -167,7 +165,9 @@ private fun RecruitmentsScreen(
                         }
                         onAction(Intent.Search)
                     },
-                    onValueChanged = { onAction(Intent.KeywordChange(it)) },
+                    onValueChanged = { value ->
+                        onAction(Intent.KeywordChange(value))
+                    },
                 )
             }
 
@@ -203,7 +203,7 @@ private fun RecruitmentsScreen(
                                     Intent.BookmarkClick(
                                         id = id,
                                         canBookmark = canBookmark,
-                                    )
+                                    ),
                                 )
                             },
                         )
@@ -227,7 +227,7 @@ fun RecruitmentsScreenPreview() {
         RecruitmentsScreen(
             uiState = UiState(
                 loading = UiState.Loading.NONE,
-                recruitments = Recruitment.fake()
+                recruitments = Recruitment.fake(),
             ),
             lazyListState = rememberLazyListState(),
             snackBarHostState = SnackbarHostState(),

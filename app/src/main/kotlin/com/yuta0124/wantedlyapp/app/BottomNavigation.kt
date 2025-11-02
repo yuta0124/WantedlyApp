@@ -79,18 +79,14 @@ fun BottomNavigation(
                         unselectedIconColor = Color.Gray,
                         unselectedTextColor = Color.Gray,
                         indicatorColor = Color.White,
-                    )
+                    ),
                 )
             }
         }
     }
 }
 
-sealed class BottomNavItems<T>(
-    @StringRes val titleRes: Int,
-    val icon: ImageVector,
-    val route: T,
-) {
+sealed class BottomNavItems<T>(@StringRes val titleRes: Int, val icon: ImageVector, val route: T) {
     data object Recruitments : BottomNavItems<RecruitmentsNavKey>(
         titleRes = R.string.recruitments,
         icon = WantedlyIcons.List,
