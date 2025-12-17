@@ -3,9 +3,9 @@
 | 項目 | バージョン |
 |---|---|
 | AndroidStudio | `Android Studio Narwhal 2025.1.1 Nightly` |
-| Android Gradle Plugin | `8.10.0` |
-| kotlin | `2.0.21` |
-| ksp | `2.0.21-1.0.27` |
+| Android Gradle Plugin | `8.13.0` |
+| kotlin | `2.2.20` |
+| ksp | `2.2.20-2.0.3` |
 
 ## 対応OS
 
@@ -18,21 +18,21 @@
 
 | ライブラリ | 用途 | バージョン |
 | --- | --- | --- |
-| Compose Bom | UI | `2025.05.01` |
-| navigationCompose | 画面遷移 | `2.9.0` |
+| Compose Bom | UI | `2025.08.01` |
+| navigation3 | 画面遷移 | `1.0.0-alpha10` |
 | hilt | DI | `2.56.2` |
 | hiltNavigationCompose | 画面遷移 | `1.2.0` |
-| detekt | 静的解析 | `1.23.7` |
+| detekt | 静的解析 | `2.0.0-alpha.1` |
 | twitterComposeRule | detektのルール補助 | `0.0.26` |
-| arrow | アーキテクチャ | `2.0.1` |
+| arrow | アーキテクチャ | `2.1.2` |
 | roborazzi | スクリーンショットテスト | `1.41.0` |
 | robolectric | 同上 | `4.14.1` |
 | composablePreviewScanner | 同上 | `0.5.1` |
-| ktor | Kttpクライアント | `3.1.3` |
+| ktor | Httpクライアント | `3.2.3` |
 | coil | 画像読み込み | `3.2.0` |
 | coilNetworkOkhttp | 同上 | `3.2.0` |
-| Room | ローカルデータベース | `2.7.1` |
-| kotest | 単体テスト | `5.9.1` |
+| Room | ローカルデータベース | `2.7.2` |
+| kotest | 単体テスト | `6.0.4` |
 | truth | 同上 | `1.4.4` |
 | mockk | 同上 | `1.14.4` |
 | junitVintageEngine | Junit4/Junit5の併用 | `5.11.2` |
